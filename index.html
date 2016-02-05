@@ -7,8 +7,16 @@
 		<meta name="description" content="A collection of art that shows depth when moved over with a mouse">
 		<meta name="author" content="Damjan Roškar">
 		<title>Depth Perception - Art with depth... literally</title>
+		
+		<!-- font -->
 		<link href='http://fonts.googleapis.com/css?family=VT323' rel='stylesheet' type='text/css'>
+		
+		<!-- stylesheet -->
 		<link rel="stylesheet" type="text/css" href="style/style.css">
+		
+		<!-- jQuery -->
+		<script src="libraries/jquery-1.12.0.min.js"></script>
+		
 	</head>
 
 	<body>
@@ -28,7 +36,7 @@
 			<table>
 				<tr>
 					<td><img id="AL" src="images/arrowL.jpg" alt="ArrowLeft"></td>
-					<td><canvas id="MyCanvas" width="1024" height="576" onmousemove="mouseOv(event)" ></canvas></td>
+					<td><canvas id="MyCanvas" width="1024" height="576"></canvas></td>
 					<td><img id="AR" src="images/arrowR.jpg" alt="ArrowRight"></td>
 				</tr>
 				<tr>
@@ -57,8 +65,6 @@
 			<br />
 		</div>
 		
-		<script>
-			
-		</script>
+		<script src="script/main.js"></script>
 	</body>
 </html>
