@@ -4,12 +4,26 @@ $(document).ready(function(){
 	
 	var untouched = true;
 	
-	// mouseover canvas
+	// get canvas contents
+	$.get("backend/getContent.php?p=", function(data){
+		if(data == "false"){
+			console.log("error fetching data");
+		}
+	});
+	
+	// mouse enter canvas
 	$("#canvas").mouseover(function(){
 		if(untouched){
 			ctx.clearRect(0, 0, c.width, c.height);
 			untouched = false;
 		}
+	});
+	
+	// mouse move over canvas
+	$("#canvas").mouseover(function(){
+		// get position
+		
+		// update values
 	});
 	
 	if(untouched){
