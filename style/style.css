@@ -19,16 +19,28 @@ hr {
 	border-color:#DFBF5F;
 }
 
-.tableText {
-	width:341px;
+#infotable {
+	width: 100%;
 	text-align:center;
 	color:#EFDFAF;
 	font-family:"VT323",cursive;
 	font-size:24px;
 }
 
-.personals {
+#title {
+	width: 45%;
 	color:#DFBF5F;
+	text-align: right;
+}
+
+#author {
+	width: 45%;
+	color:#DFBF5F;
+	text-align: left;
+}
+
+#by {
+	width: 10%;
 }
 
 a:link {

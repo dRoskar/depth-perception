@@ -38,7 +38,7 @@ $(document).ready(function(){
 				};
 			}
 			
-			// suppy source to image objects and wait for all images to load
+			// supply source to image objects and wait for all images to load
 			for(var key in content.images){
 				var url = content.images[key].url;
 				
@@ -54,6 +54,10 @@ $(document).ready(function(){
 				// set image src
 				content.images[key].imageObj.src = url;
 			}
+			
+			// display image info
+			$("#title").html(content.title);
+			$("#author").html(content.author);
 		}
 	});
 });
