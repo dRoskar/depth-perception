@@ -63,7 +63,9 @@ function imagesLoaded(){
 	setInterval(redraw, 10);
 	
 	// start monitoring mouse over canvas
-	$("#canvas").mousemove(glide);
+	$("#canvas").mousemove(function(e){
+		glide(e);
+	});
 	
 	// capture first touch
 	$("#canvas").mouseover(function(){
@@ -101,6 +103,24 @@ function redraw(){
 	}
 };
 
-function glide(){
+function glide(e){
 	// update image coordinates
+	var mousePosition = getCanvasRelevantPosition(canvas, e.clientX, e.clientY);
+	
+	//convert to central coord sys
+	mousePosition.x -= 512;
+	mousePosition.y -= 288;
+	
+	for(var key in content.images){
+		content.images[key].x = (-mousePosition.x * content.images[key].factor) + settings.canvasWidth / 2;
+		content.images[key].y = (-mousePosition.y * content.images[key].factor) + settings.canvasHeight / 2;
+	}
+};
+
+
+// ----------------- tools -----------------
+function getCanvasRelevantPosition(canvas, x, y){
+	var rect = canvas.getBoundingClientRect();
+	
+	return {x: x - rect.left, y: y - rect.top};
 };
