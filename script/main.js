@@ -23,7 +23,7 @@ $(document).ready(function(){
 				title: data[1],
 				author: (data[2] == "" || data[2] == null) ? "Anonymous" : data[2],
 				images: {},
-				limit: data[13] == "f" ? false : true,
+				frame: data[13] == "f" ? false : true,
 				front_image: data[14],
 				page: data[15]
 			};
@@ -86,20 +86,12 @@ function redraw(){
 	// show instruction
 	if(untouched){
 		// add instruction rect to canvas
-		
-		//wheat border
-		ctx.fillStyle = "#EFDFAF";
-		ctx.fillRect(386, 194, 252, 42);
-		
-		//rectangle base
-		ctx.fillStyle = "#000000";
-		ctx.fillRect(387, 195, 250, 40);
-		
-		//text
-		ctx.textAlign = "center";
-		ctx.fillStyle = "#EFDFAF";
-		ctx.font = "24px Times New Roman";
-		ctx.fillText("your mouse goes here", 512, 220);
+		drawInstructionalRect();
+	}
+	
+	// draw frame if required
+	if(content.frame){
+		drawFrame();
 	}
 };
 
@@ -111,6 +103,7 @@ function glide(e){
 	mousePosition.x -= 512;
 	mousePosition.y -= 288;
 	
+	// update image positions
 	for(var key in content.images){
 		content.images[key].x = (-mousePosition.x * content.images[key].factor) + settings.canvasWidth / 2;
 		content.images[key].y = (-mousePosition.y * content.images[key].factor) + settings.canvasHeight / 2;
@@ -124,3 +117,43 @@ function getCanvasRelevantPosition(canvas, x, y){
 	
 	return {x: x - rect.left, y: y - rect.top};
 };
+
+function drawInstructionalRect(){
+	//wheat border
+	ctx.fillStyle = "#EFDFAF";
+	ctx.fillRect(386, 194, 252, 42);
+	
+	//rectangle base
+	ctx.fillStyle = "#000000";
+	ctx.fillRect(387, 195, 250, 40);
+	
+	//text
+	ctx.textAlign = "center";
+	ctx.fillStyle = "#EFDFAF";
+	ctx.font = "24px Times New Roman";
+	ctx.fillText("your mouse goes here", 512, 220);
+}
+
+function drawFrame(){
+	// get frontmost image
+	frontImage = content.images["layer" + content.images.front_image];
+	
+	// calculate the maximum distance the image can move
+	var offsetX = (settings.canvasWidth / 2) * frontImage.factor;
+	var offsetY = (settings.canvasHeight / 2) * frontImage.factor;
+	
+	//draw frame for front layer
+	ctx.fillStyle="#000000";
+		
+	//left
+	ctx.fillRect(0, 0, ((settings.canvasWidth - frontImage.imageObj.width)/2) + offsetX, settings.canvasHeight);
+	
+	//right
+	ctx.fillRect(settings.canvasWidth, 0, -((settings.canvasWidth - frontImage.width)/2) - offsetX, settings.canvasHeight);
+	
+	//top
+	ctx.fillRect(0, 0, settings.canvasWidth, ((settings.canvasHeight - frontImage.height)/2) + offsetY);
+	
+	//bottom
+	ctx.fillRect(0, settings.canvasHeight, settings.canvasWidth, -((settings.canvasHeight - frontImage.height)/2) - offsetY);
+}
