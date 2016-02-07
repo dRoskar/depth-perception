@@ -11,3 +11,12 @@ I like this project so I decided to remake it.
  - Data was saved in a text file
  - Almost no backend logic to speak of
  - PHP mixed in with HTML (oh boy)
+
+ ## TO-DO
+ - show image info - author and title only
+ - implement gallery navigation
+ - image sharing
+ - move navigation to the bottom
+ - replace the arrows with something better looking
+ - detect arrow keys for gallery navigation
+ - allow dynamic canvas sizes - size determined by frontmost image (goodbye frames)
