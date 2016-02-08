@@ -19,6 +19,11 @@ hr {
 	border-color:#DFBF5F;
 }
 
+#mainTable {
+	margin-left:auto;
+	margin-right: auto;
+}
+
 #infotable {
 	width: 100%;
 	text-align:center;
@@ -74,22 +79,14 @@ a {
 	font-size:24px;
 }
 
-#canvasDiv {
-	width:1394px;
-	margin-left:auto;
-	margin-right:auto;
-}
-
 #AL {
-	margin-top:auto;
-	margin-bottom:auto;
-	margin-right:20px;
+	width: 42px;
+	margin-right: 25px;
 }
 
 #AR {
-	margin-top:auto;
-	margin-bottom:auto;
-	margin-left:20px;
+	width: 42px;
+	margin-left: 25px;
 }
 
 #textBoxShare {

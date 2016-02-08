@@ -17,7 +17,15 @@ $(document).ready(function(){
 	}
 	
 	// get canvas contents
-	$.get("backend/getContent.php?i=" + params.i, function(data){
+	retrieveContent(params.i, null);
+});
+
+function retrieveContent(hash, nav){
+	if(nav == null){
+		nav = "";
+	}
+	
+	$.get("backend/getContent.php?i=" + hash + "&n=" + nav, function(data){
 		if(data == "false"){
 			// error
 		}
@@ -74,7 +82,7 @@ $(document).ready(function(){
 			$("#textBoxShare").val(getUrlWithoutParameters() + "?i=" + content.hash);
 		}
 	});
-});
+}
 
 function imagesLoaded(){
 	// begin redraw loop
@@ -83,11 +91,6 @@ function imagesLoaded(){
 	// start monitoring mouse over canvas
 	$("#canvas").mousemove(function(e){
 		glide(e);
-	});
-	
-	// capture first touch
-	$("#canvas").mouseover(function(){
-		untouched = false;
 	});
 }
 
@@ -114,6 +117,8 @@ function redraw(){
 };
 
 function glide(e){
+	untouched = false;
+	
 	// update image coordinates
 	var mousePosition = getCanvasRelevantPosition(canvas, e.clientX, e.clientY);
 	
@@ -129,6 +134,16 @@ function glide(e){
 };
 
 //----------------- buttons -----------------
+$("#AL").click(function(){
+	// next page
+	retrieveContent(content.hash, "next");
+});
+
+$("#AR").click(function(){
+	// prev page
+	retrieveContent(content.hash, "previous");
+});
+
 $("#copyButton").click(function(){
 	// select texbox value
 	$("#textBoxShare").select();

@@ -20,53 +20,51 @@
 	</head>
 
 	<body>
-		<div id="canvasDiv">
-			<table border = "0">
-				<tr>
-					<td></td>
-					<td><a href="http://www.damjanroskar.com/depth-perception/" ><h1>Depth Perception</h1></a></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><img id="AL" src="images/arrowL.jpg" alt="ArrowLeft"></td>
-					<td><canvas id="canvas" width="1024" height="576"></canvas></td>
-					<td><img id="AR" src="images/arrowR.jpg" alt="ArrowRight"></td>
-				</tr>
-				<tr>
-					<td></td>
-					
-					<td>
-						<table id="infotable">
-							<tr >
-								<td id="title"></td>
-								<td id="by" class="tableText" >by</td>
-								<td id="author"></td>
-							</tr>
-						</table>
-					</td>
-					
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td class="centerTd">
-						<span class="text">share: </span>
-						<input id="textBoxShare" type="text" onfocus="this.select()" onMouseUp="return false" value="" >
-						<button id="copyButton">copy</button>
-					</td>
-					<td></td>
-				</tr>
-			</table>
-			<br />
-			<br />
-			<table id="navigationTable" border="0">
+		<table id="mainTable">
 			<tr>
-				<td class="navtd"><button id="submitButton">submit</button></td>
-				<td class="navtd"><button id="contactButton">contact</button></td>
+				<td></td>
+				<td><a href="http://www.damjanroskar.com/depth-perception/" ><h1>Depth Perception</h1></a></td>
+				<td></td>
 			</tr>
-			</table>
-			<br />
-		</div>
+			<tr>
+				<td><img id="AL" src="images/l.svg" alt="ArrowLeft"></td>
+				<td><canvas id="canvas" width="1024" height="576"></canvas></td>
+				<td><img id="AR" src="images/r.svg" alt="ArrowRight"></td>
+			</tr>
+			<tr>
+				<td></td>
+				
+				<td>
+					<table id="infotable">
+						<tr >
+							<td id="title"></td>
+							<td id="by" class="tableText" >by</td>
+							<td id="author"></td>
+						</tr>
+					</table>
+				</td>
+				
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td class="centerTd">
+					<span class="text">share: </span>
+					<input id="textBoxShare" type="text" onfocus="this.select()" onMouseUp="return false" value="" >
+					<button id="copyButton">copy</button>
+				</td>
+				<td></td>
+			</tr>
+		</table>
+		<br />
+		<br />
+		<table id="navigationTable">
+		<tr>
+			<td class="navtd"><button id="submitButton">submit</button></td>
+			<td class="navtd"><button id="contactButton">contact</button></td>
+		</tr>
+		</table>
+		<br />
 		<script src="script/settings.js"></script>
 		<script src="script/main.js"></script>
 	</body>
