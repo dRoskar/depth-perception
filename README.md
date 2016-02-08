@@ -13,8 +13,10 @@ I like this project so I decided to remake it.
  - PHP mixed in with HTML (oh boy)
 
  ## TO-DO
+ - use page system for order of navigation, but use hash for sharing
  - implement gallery navigation
- - image sharing
+ - show message if a page doesn't exist
  - replace the arrows with something better looking
  - detect arrow keys for gallery navigation
  - allow dynamic canvas sizes - size determined by frontmost image (goodbye frames)
+ - make a user submission interface
