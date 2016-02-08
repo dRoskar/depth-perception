@@ -86,7 +86,7 @@ function retrieveContent(hash, nav){
 
 function imagesLoaded(){
 	// begin redraw loop
-	setInterval(redraw, 10);
+	setInterval(redraw, 1000);
 	
 	// start monitoring mouse over canvas
 	$("#canvas").mousemove(function(e){
@@ -161,6 +161,18 @@ $("#submitButton").click(function(){
 
 $("#contactButton").click(function(){
 	window.location.href = "contact.html";
+});
+
+// --------------- keypress ---------------
+$(document).keypress(function(e){
+	if(e.keyCode == 37){
+		// left arrow
+		retrieveContent(content.hash, "next");
+	}
+	else if(e.keyCode == 39){
+		// right arrow
+		retrieveContent(content.hash, "previous");
+	}
 });
 
 // ----------------- tools -----------------
