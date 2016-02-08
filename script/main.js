@@ -131,7 +131,14 @@ function glide(e){
 
 //----------------- buttons -----------------
 $("#copyButton").click(function(){
-	// copy textbox text to clipboard
+	// select texbox value
+	$("#textBoxShare").select();
+	
+	// copy selection text to clipboard
+	document.execCommand("copy");
+	
+	// lose textbox focus (unselect text)
+	$("#textBoxShare").blur();
 });
 
 $("#submitButton").click(function(){
