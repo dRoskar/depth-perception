@@ -3,13 +3,23 @@
  var content = null;
  var untouched = true;
  var loadedCount = 0;
+ var page = "";
 
 $(document).ready(function(){
 	c = $("#canvas").get(0);
 	ctx = c.getContext("2d");
 	
+	// get url page parameter
+	var params = getUrlParams();
+	
+	if(params.p != "" && params.p != null){
+		if(!isNaN(params.p)){
+			page = parseInt(params.p);
+		}
+	}
+	
 	// get canvas contents
-	$.get("backend/getContent.php?p=", function(data){
+	$.get("backend/getContent.php?p=" + page, function(data){
 		if(data == "false"){
 			// error
 		}
@@ -38,6 +48,8 @@ $(document).ready(function(){
 				};
 			}
 			
+			page = content.page;
+			
 			// supply source to image objects and wait for all images to load
 			for(var key in content.images){
 				var url = content.images[key].url;
@@ -58,6 +70,9 @@ $(document).ready(function(){
 			// display image info
 			$("#title").html(content.title);
 			$("#author").html(content.author);
+			
+			// suppy direct link url
+			$("#textBoxShare").val(getUrlWithoutParameters() + "?p=" + page);
 		}
 	});
 });
@@ -172,4 +187,22 @@ function drawFrame(){
 	
 	//bottom
 	ctx.fillRect(0, settings.canvasHeight, settings.canvasWidth, -((settings.canvasHeight - frontImage.height)/2) - offsetY);
+}
+
+function getUrlParams() {
+	var params = {};
+	var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value) {
+		params[key] = value;
+	});
+	
+	return params;
+}
+
+function getUrlWithoutParameters(){
+	var url = window.location.href;
+	if(window.location.href.indexOf("?") > 0){
+		return window.location.href.substring(0, window.location.href.indexOf("?"));
+	}
+	
+	return window.location.href;
 }

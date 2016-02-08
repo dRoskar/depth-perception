@@ -8,30 +8,29 @@ if(!$dbconn){
 	echo "failed to connect to database";
 	return;
 }
+
+if($page == null){
+	// return latest content
+	$sql = "SELECT * FROM dp_entries ORDER BY page DESC LIMIT 1";
+	$result = pg_query($dbconn, $sql);
+	
+	if(!$result){
+		echo "SQL error when returning content";
+		return;
+	}
+	
+	echo json_encode(pg_fetch_row($result));
+}
 else{
-	if($page == null){
-		// return latest content
-		$sql = "SELECT * FROM dp_entries ORDER BY page DESC LIMIT 1";
-		$result = pg_query($dbconn, $sql);
-		
-		if(!$result){
-			echo "SQL error when returning content";
-			return;
-		}
-		
-		echo json_encode(pg_fetch_row($result));
+	// get canvas content for selected page
+	$sql = "SELECT * FROM dp_entries WHERE page = $page";
+	$result = pg_query($dbconn, $sql);
+	
+	if(!$result){
+		echo "SQL error when returning content";
+		return;
 	}
-	else{
-		// get canvas content for selected page
-		$sql = "SELECT * FROM dp_entries WHERE page = $page";
-		$result = pg_query($dbconn, $sql);
-		
-		if(!$result){
-			echo "SQL error when returning content";
-			return;
-		}
-		
-		echo json_encode(pg_fetch_row($result));
-	}
+	
+	echo json_encode(pg_fetch_row($result));
 }
 ?>
