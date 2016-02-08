@@ -4,6 +4,7 @@
  var untouched = true;
  var loadedCount = 0;
  var page = "";
+ var redrawIntervalId = null;
 
 $(document).ready(function(){
 	c = $("#canvas").get(0);
@@ -86,7 +87,7 @@ function retrieveContent(hash, nav){
 
 function imagesLoaded(){
 	// begin redraw loop
-	setInterval(redraw, 1000);
+	redrawIntervalId = setInterval(redraw, 1000);
 	
 	// start monitoring mouse over canvas
 	$("#canvas").mousemove(function(e){
@@ -136,11 +137,13 @@ function glide(e){
 //----------------- buttons -----------------
 $("#AL").click(function(){
 	// next page
+	clearInterval(redrawIntervalId);
 	retrieveContent(content.hash, "next");
 });
 
 $("#AR").click(function(){
 	// prev page
+	clearInterval(redrawIntervalId);
 	retrieveContent(content.hash, "previous");
 });
 
@@ -167,10 +170,12 @@ $("#contactButton").click(function(){
 $(document).keypress(function(e){
 	if(e.keyCode == 37){
 		// left arrow
+		clearInterval(redrawIntervalId);
 		retrieveContent(content.hash, "next");
 	}
 	else if(e.keyCode == 39){
 		// right arrow
+		clearInterval(redrawIntervalId);
 		retrieveContent(content.hash, "previous");
 	}
 });
