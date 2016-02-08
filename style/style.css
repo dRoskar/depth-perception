@@ -92,18 +92,11 @@ a {
 	margin-left:20px;
 }
 
-#shareDiv {
-	text-align:center;
-	margin-top:50px;
-	color:#EFDFAF;
-	font-family:"VT323",cursive;
-	font-size:24px;
-}
-
 #textBoxShare {
+	margin-top: 30px;
 	background-color:#000000;
 	border: 1px solid #EFDFAF;
-	width:240px; color:#EFDFAF;
+	width: 400px; color:#EFDFAF;
 	border-radius:3px;
 	text-align:center;
 }
@@ -133,6 +126,29 @@ span.center_text_button {
 	font-size:31px;
 }
 
-#link{
+#link {
 	color:#DFBF5F;
+}
+
+.centerTd {
+	text-align: center;
+}
+
+button {
+	background-color: #000000;
+	border: 1px solid;
+	border-color: #EFDFAF;
+	color: #EFDFAF;
+	font-size: 24px;
+	font-family: "VT323",cursive;
+}
+
+#copyButton {
+	margin-left: 10px;	
+}
+
+.text {
+	color: #EFDFAF;
+	font-size: 24px;
+	font-family: "VT323",cursive;
 }

@@ -114,6 +114,18 @@ function glide(e){
 	}
 };
 
+//----------------- buttons -----------------
+$("#copyButton").click(function(){
+	// copy textbox text to clipboard
+});
+
+$("#submitButton").click(function(){
+	window.location.href = "submit.html";
+});
+
+$("#contactButton").click(function(){
+	window.location.href = "contact.html";
+});
 
 // ----------------- tools -----------------
 function getCanvasRelevantPosition(canvas, x, y){

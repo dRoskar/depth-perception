@@ -20,20 +20,13 @@
 	</head>
 
 	<body>
-		<a style="text-decoration:none" href="http://www.damjanroskar.com/depth-perception/" ><h1>Depth Perception</h1></a>
-		
-		<table id="navigationTable">
-			<tr>
-				<td class="navtd"><a href="submit.html" >Submit art</a></td>
-				<td class="navtd"><a href="about.html" >About</a></td>
-				<td class="navtd"><a href="contact.html" >Contact</a></td>
-			</tr>
-		</table>
-		
-		<br>
-			
 		<div id="canvasDiv">
-			<table>
+			<table border = "0">
+				<tr>
+					<td></td>
+					<td><a href="http://www.damjanroskar.com/depth-perception/" ><h1>Depth Perception</h1></a></td>
+					<td></td>
+				</tr>
 				<tr>
 					<td><img id="AL" src="images/arrowL.jpg" alt="ArrowLeft"></td>
 					<td><canvas id="canvas" width="1024" height="576"></canvas></td>
@@ -46,7 +39,7 @@
 						<table id="infotable">
 							<tr >
 								<td id="title"></td>
-								<td id="by" class="tableText" >by: </td>
+								<td id="by" class="tableText" >by</td>
 								<td id="author"></td>
 							</tr>
 						</table>
@@ -56,12 +49,22 @@
 				</tr>
 				<tr>
 					<td></td>
-					<td><div id="shareDiv" >Share this image: <input id="textBoxShare" type="text" onfocus="this.select()" onMouseUp="return false" value="" ></div></td>
+					<td class="centerTd">
+						<span class="text">share: </span>
+						<input id="textBoxShare" type="text" onfocus="this.select()" onMouseUp="return false" value="" >
+						<button id="copyButton">copy</button>
+					</td>
 					<td></td>
 				</tr>
 			</table>
 			<br />
 			<br />
+			<table id="navigationTable" border="0">
+			<tr>
+				<td class="navtd"><button id="submitButton">submit</button></td>
+				<td class="navtd"><button id="contactButton">contact</button></td>
+			</tr>
+			</table>
 			<br />
 		</div>
 		<script src="script/settings.js"></script>
