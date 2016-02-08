@@ -1,11 +1,14 @@
  var c = null;
  var ctx = null;
  var content = null;
+ var contentCopy = null;
  var untouched = true;
  var loadedCount = 0;
  var page = "";
  var redrawIntervalId = null;
+ var loadingIntervalId = null;
  var loading = false;
+ var loadingRotation = 1;
 
 $(document).ready(function(){
 	c = $("#canvas").get(0);
@@ -29,6 +32,10 @@ function retrieveContent(hash, nav){
 	}
 	
 	loading = true;
+	
+	showLoadingAnimation();
+	
+	
 	
 	if(nav == null){
 		nav = "";
@@ -58,12 +65,13 @@ function retrieveContent(hash, nav){
 				content.images["layer" + i] = {
 						url: data[i + 2] == null ? "images/empty.gif" : data[i + 2],
 						imageObj: new Image(),
-						x: settings.canvasWidth / 2,
-						y: settings.canvasHeight / 2,
+						x: c.width / 2,
+						y: c.height / 2,
 						factor: settings["layer" + i + "Factor"]
 				};
 			}
 			
+			// copy content to display when loading (prevets black flshes while loading new content
 			page = content.page;
 			
 			// supply source to image objects and wait for all images to load
@@ -94,7 +102,12 @@ function retrieveContent(hash, nav){
 }
 
 function imagesLoaded(){
+	//clone content
+	contentCopy = content;
+	
 	loading = false;
+	
+	hideLoadingAnimation();
 	
 	// begin redraw loop
 	redrawIntervalId = setInterval(redraw, 10);
@@ -139,10 +152,57 @@ function glide(e){
 	
 	// update image positions
 	for(var key in content.images){
-		content.images[key].x = (-mousePosition.x * content.images[key].factor) + settings.canvasWidth / 2;
-		content.images[key].y = (-mousePosition.y * content.images[key].factor) + settings.canvasHeight / 2;
+		content.images[key].x = (-mousePosition.x * content.images[key].factor) + c.width / 2;
+		content.images[key].y = (-mousePosition.y * content.images[key].factor) + c.height / 2;
 	}
 };
+
+function showLoadingAnimation(){
+	//wheat border
+	var loadingImg = new Image();
+	
+	loadingImg.onload = function(){
+		loadingIntervalId = setInterval(function(){
+			drawLoadingImage(loadingImg);
+		}, 10);
+	}
+	
+	
+	loadingImg.src = "images/loading.svg";
+}
+
+function hideLoadingAnimation(){
+	clearInterval(loadingIntervalId);
+	loadingRotation = 1;
+}
+
+function drawLoadingImage(loadingImg){
+	// clear canvas
+	ctx.clearRect(0, 0, c.width, c.height);
+	
+	// draw images in correct order
+	if(contentCopy != null){
+		for(var i = 1; i < 11; i++){
+			var image = contentCopy.images["layer" + i];
+			ctx.drawImage(image.imageObj, image.x - (image.imageObj.width/2), image.y - (image.imageObj.height/2));
+		}
+	}
+	
+	// show instruction
+	if(untouched){
+		// add instruction rect to canvas
+		drawInstructionalRect();
+	}
+	
+	// draw loading animation
+	ctx.translate(c.width / 2, c.height / 2);
+	ctx.rotate((2 * Math.PI / 180) * loadingRotation);
+	ctx.drawImage(loadingImg, - 30, - 30, 60, 60);
+	ctx.rotate(-((2 * Math.PI / 180) * loadingRotation));
+	ctx.translate(-(c.width / 2), -(c.height / 2));
+	
+	loadingRotation++;
+}
 
 //----------------- buttons -----------------
 $("#AL").click(function(){
@@ -223,23 +283,23 @@ function drawFrame(){
 	frontImage = content.images["layer" + content.images.front_image];
 	
 	// calculate the maximum distance the image can move
-	var offsetX = (settings.canvasWidth / 2) * frontImage.factor;
-	var offsetY = (settings.canvasHeight / 2) * frontImage.factor;
+	var offsetX = (c.width / 2) * frontImage.factor;
+	var offsetY = (c.height / 2) * frontImage.factor;
 	
 	//draw frame for front layer
 	ctx.fillStyle="#000000";
 		
 	//left
-	ctx.fillRect(0, 0, ((settings.canvasWidth - frontImage.imageObj.width)/2) + offsetX, settings.canvasHeight);
+	ctx.fillRect(0, 0, ((c.width - frontImage.imageObj.width)/2) + offsetX, c.height);
 	
 	//right
-	ctx.fillRect(settings.canvasWidth, 0, -((settings.canvasWidth - frontImage.width)/2) - offsetX, settings.canvasHeight);
+	ctx.fillRect(c.width, 0, -((c.width - frontImage.width)/2) - offsetX, c.height);
 	
 	//top
-	ctx.fillRect(0, 0, settings.canvasWidth, ((settings.canvasHeight - frontImage.height)/2) + offsetY);
+	ctx.fillRect(0, 0, c.width, ((c.height - frontImage.height)/2) + offsetY);
 	
 	//bottom
-	ctx.fillRect(0, settings.canvasHeight, settings.canvasWidth, -((settings.canvasHeight - frontImage.height)/2) - offsetY);
+	ctx.fillRect(0, c.height, c.width, -((c.height - frontImage.height)/2) - offsetY);
 }
 
 function getUrlParams() {

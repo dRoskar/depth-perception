@@ -1,7 +1,4 @@
 var settings = {
-	canvasWidth: 1024,
-	canvasHeight: 576,
-	
 	layer1Factor: 0.025,
 	layer2Factor: 0.05,
 	layer3Factor: 0.075,
