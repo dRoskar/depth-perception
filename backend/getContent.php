@@ -1,5 +1,5 @@
 <?php
-$page = $_GET["p"];
+$hash = $_GET["i"];
 
 // establish db connection
 $dbconn = pg_connect("host=localhost dbname=dr_services user=postgres password='kingdomdb'"); // yes, i know there's a password here. It's local, I don't care.
@@ -9,7 +9,7 @@ if(!$dbconn){
 	return;
 }
 
-if($page == null){
+if($hash == null){
 	// return latest content
 	$sql = "SELECT * FROM dp_entries ORDER BY page DESC LIMIT 1";
 	$result = pg_query($dbconn, $sql);
@@ -23,7 +23,7 @@ if($page == null){
 }
 else{
 	// get canvas content for selected page
-	$sql = "SELECT * FROM dp_entries WHERE page = $page";
+	$sql = "SELECT * FROM dp_entries WHERE hash = '$hash'";
 	$result = pg_query($dbconn, $sql);
 	
 	if(!$result){

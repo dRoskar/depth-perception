@@ -12,14 +12,12 @@ $(document).ready(function(){
 	// get url page parameter
 	var params = getUrlParams();
 	
-	if(params.p != "" && params.p != null){
-		if(!isNaN(params.p)){
-			page = parseInt(params.p);
-		}
+	if(params.i == null){
+		params.i = "";
 	}
 	
 	// get canvas contents
-	$.get("backend/getContent.php?p=" + page, function(data){
+	$.get("backend/getContent.php?i=" + params.i, function(data){
 		if(data == "false"){
 			// error
 		}
@@ -35,7 +33,8 @@ $(document).ready(function(){
 				images: {},
 				frame: data[13] == "f" ? false : true,
 				front_image: data[14],
-				page: data[15]
+				page: data[15],
+				hash: data[16]
 			};
 			
 			for(var i = 1; i < 11; i++){
@@ -72,7 +71,7 @@ $(document).ready(function(){
 			$("#author").html(content.author);
 			
 			// suppy direct link url
-			$("#textBoxShare").val(getUrlWithoutParameters() + "?p=" + page);
+			$("#textBoxShare").val(getUrlWithoutParameters() + "?i=" + content.hash);
 		}
 	});
 });
