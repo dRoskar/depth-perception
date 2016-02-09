@@ -36,6 +36,20 @@ else{
 		}
 	}
 	else{ // navigate to next or previous item
+		// if user is navigating from 404, load latest conetent
+		if($hash === "404"){
+			$result = getLatestContent($dbconn);
+				
+			if($result === "ERROR"){
+				echo "ERROR: retrieving content failed";
+				return;
+			}
+			else{
+				echo $result;
+				return;
+			}
+		}
+		
 		// get this item's page
 		$page = getPageForItem($hash, $dbconn);
 		
@@ -43,7 +57,7 @@ else{
 			echo "ERROR: getting current item's page failed";
 			return;
 		}
-		
+				
 		if($nav === "next"){
 			$page++;
 			
@@ -133,7 +147,14 @@ function getContentForHash($hash, $dbconn){
 		return "ERROR";
 	}
 	
-	return json_encode(pg_fetch_row($result));
+	$row = pg_fetch_row($result);
+	
+	if($row == false){
+		return json_encode(array("error"=>"404"));
+	}
+	else{
+		return json_encode($row);
+	}
 }
 
 function getContentForPage($page, $dbconn){

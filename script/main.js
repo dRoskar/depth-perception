@@ -35,8 +35,6 @@ function retrieveContent(hash, nav){
 	
 	showLoadingAnimation();
 	
-	
-	
 	if(nav == null){
 		nav = "";
 	}
@@ -51,24 +49,32 @@ function retrieveContent(hash, nav){
 			// save retrieved content
 			data = JSON.parse(data);
 			
-			content = {
-				title: data[1],
-				author: (data[2] == "" || data[2] == null) ? "Anonymous" : data[2],
-				images: {},
-				frame: data[13] == "f" ? false : true,
-				front_image: data[14],
-				page: data[15],
-				hash: data[16]
-			};
-			
-			for(var i = 1; i < 11; i++){
-				content.images["layer" + i] = {
-						url: data[i + 2] == null ? "images/empty.gif" : data[i + 2],
-						imageObj: new Image(),
-						x: c.width / 2,
-						y: c.height / 2,
-						factor: settings["layer" + i + "Factor"]
+			if(!data.hasOwnProperty("error")){
+				content = {
+					title: data[1],
+					author: (data[2] == "" || data[2] == null) ? "Anonymous" : data[2],
+					images: {},
+					frame: data[13] == "f" ? false : true,
+					front_image: data[14],
+					page: data[15],
+					hash: data[16]
 				};
+				
+				for(var i = 1; i < 11; i++){
+					content.images["layer" + i] = {
+							url: data[i + 2] == null ? "images/empty.gif" : data[i + 2],
+							imageObj: new Image(),
+							x: c.width / 2,
+							y: c.height / 2,
+							factor: settings["layer" + i + "Factor"]
+					};
+				}
+			}
+			else{
+				// get 404 images
+				hideLoadingAnimation();
+				retrieveContent("404", null);
+				return;
 			}
 			
 			// copy content to display when loading (prevets black flshes while loading new content
