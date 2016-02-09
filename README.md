@@ -14,7 +14,6 @@ I like this project so I decided to remake it.
 
  ## TO-DO
  - show message if a page doesn't exist
- - detect arrow keys for gallery navigation
- - loading animation
+ - what happens an image fails to load?
  - allow dynamic canvas sizes - size determined by frontmost image (goodbye frames)
  - make a user submission interface
