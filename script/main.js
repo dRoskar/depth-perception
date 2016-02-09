@@ -95,7 +95,7 @@ function retrieveContent(hash, nav){
 			$("#title").html(content.title);
 			$("#author").html(content.author);
 			
-			// suppy direct link url
+			// supply direct link url
 			$("#textBoxShare").val(getUrlWithoutParameters() + "?i=" + content.hash);
 		}
 	});
