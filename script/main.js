@@ -77,7 +77,6 @@ function retrieveContent(hash, nav){
 				return;
 			}
 			
-			// copy content to display when loading (prevets black flshes while loading new content
 			page = content.page;
 			
 			// supply source to image objects and wait for all images to load
@@ -91,6 +90,12 @@ function retrieveContent(hash, nav){
 					if(loadedCount == 10){
 						imagesLoaded();
 					}
+				}
+				
+				// switch src to a local 404 image if images doesn't exist
+				content.images[key].imageObj.onerror = function(){
+					this.onerror = null;
+					this.src = "images/localContent/missingImage.png";
 				}
 				
 				// set image src
