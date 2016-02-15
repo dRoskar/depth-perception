@@ -24,6 +24,12 @@ hr {
 	margin-right: auto;
 }
 
+#canvas {
+	border-style: solid;
+	border-width: 1px;
+	border-color: #EFDFAF;
+}
+
 #infotable {
 	width: 100%;
 	text-align:center;

@@ -9,7 +9,7 @@
  var loadingIntervalId = null;
  var loading = false;
  var loadingRotation = 1;
-
+ 
 $(document).ready(function(){
 	c = $("#canvas").get(0);
 	ctx = c.getContext("2d");
@@ -119,6 +119,16 @@ function imagesLoaded(){
 	
 	hideLoadingAnimation();
 	
+	// set canvas size
+	c.width = content.width;
+	c.height = content.height;
+	
+	// set initial image positions relative to canvas
+	for(var i = 1; i < getObjectSize(content.images) + 1; i++){
+		content.images["layer" + i].x = c.width / 2;
+		content.images["layer" + i].y = c.height / 2;
+	}
+	
 	// begin redraw loop
 	redrawIntervalId = setInterval(redraw, 10);
 	
@@ -133,7 +143,7 @@ function redraw(){
 	ctx.clearRect(0, 0, c.width, c.height);
 	
 	// draw images in correct order
-	for(var i = 1; i < 11; i++){
+	for(var i = 1; i < getObjectSize(content.images) + 1; i++){
 		var image = content.images["layer" + i];
 		ctx.drawImage(image.imageObj, image.x - (image.imageObj.width/2), image.y - (image.imageObj.height/2));
 	}
@@ -170,7 +180,6 @@ function showLoadingAnimation(){
 			drawLoadingImage(loadingImg);
 		}, 10);
 	}
-	
 	
 	loadingImg.src = "images/loading.svg";
 }
@@ -298,4 +307,16 @@ function getUrlWithoutParameters(){
 	}
 	
 	return window.location.href;
+}
+
+function getObjectSize(object){
+	var count = 0;
+	
+	for(var key in object){
+		if(object.hasOwnProperty(key)){
+			count++;
+		}
+	}
+	
+	return count;
 }
