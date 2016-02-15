@@ -15,3 +15,5 @@ I like this project so I decided to remake it.
  ## TO-DO
  - allow dynamic canvas sizes - size determined by frontmost image (goodbye frames)
  - make a user submission interface
+ - allow canvas size setting (at submission). User can choose default, auto or custom size.
+ - allow image aligning (at submission). User can select a layer and drag an image around. Offset is saved to DB. 

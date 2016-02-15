@@ -54,10 +54,9 @@ function retrieveContent(hash, nav){
 					title: data[1],
 					author: (data[2] == "" || data[2] == null) ? "Anonymous" : data[2],
 					images: {},
-					frame: data[13] == "f" ? false : true,
-					front_image: data[14],
-					page: data[15],
-					hash: data[16]
+					hash: data[14],
+					width: data[15],
+					height: data[16]
 				};
 				
 				for(var i = 1; i < 11; i++){
@@ -144,11 +143,6 @@ function redraw(){
 		// add instruction rect to canvas
 		drawInstructionalRect();
 	}
-	
-	// draw frame if required
-	if(content.frame){
-		drawFrame();
-	}
 };
 
 function glide(e){
@@ -169,7 +163,6 @@ function glide(e){
 };
 
 function showLoadingAnimation(){
-	//wheat border
 	var loadingImg = new Image();
 	
 	loadingImg.onload = function(){
@@ -287,30 +280,6 @@ function drawInstructionalRect(){
 	ctx.fillStyle = "#EFDFAF";
 	ctx.font = "24px Times New Roman";
 	ctx.fillText("your mouse goes here", 512, 220);
-}
-
-function drawFrame(){
-	// get frontmost image
-	frontImage = content.images["layer" + content.images.front_image];
-	
-	// calculate the maximum distance the image can move
-	var offsetX = (c.width / 2) * frontImage.factor;
-	var offsetY = (c.height / 2) * frontImage.factor;
-	
-	//draw frame for front layer
-	ctx.fillStyle="#000000";
-		
-	//left
-	ctx.fillRect(0, 0, ((c.width - frontImage.imageObj.width)/2) + offsetX, c.height);
-	
-	//right
-	ctx.fillRect(c.width, 0, -((c.width - frontImage.width)/2) - offsetX, c.height);
-	
-	//top
-	ctx.fillRect(0, 0, c.width, ((c.height - frontImage.height)/2) + offsetY);
-	
-	//bottom
-	ctx.fillRect(0, c.height, c.width, -((c.height - frontImage.height)/2) - offsetY);
 }
 
 function getUrlParams() {
