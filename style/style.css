@@ -30,6 +30,10 @@ hr {
 	border-color: #EFDFAF;
 }
 
+#canvas_row {
+	text-align:center;
+}
+
 #infotable {
 	width: 100%;
 	text-align:center;
