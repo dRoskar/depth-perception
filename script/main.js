@@ -9,6 +9,7 @@
  var loadingIntervalId = null;
  var loading = false;
  var loadingRotation = 1;
+ var keyIsDown = false;
  
 $(document).ready(function(){
 	c = $("#canvas").get(0);
@@ -264,20 +265,33 @@ $("#contactButton").click(function(){
 	window.location.href = "contact.html";
 });
 
-// --------------- keypress ---------------
+// --------------- arrow keys ---------------
 $(document).keydown(function(e){
-	if(e.keyCode == 37){
-		// left arrow
-		if(!loading){
+	if(!keyIsDown){
+		console.log("keypress");
+		if(e.keyCode == 37){
+			 keyIsDown = true;
 			
-			retrieveContent(content.hash, "next");
+			// left arrow
+			if(!loading){
+				
+				retrieveContent(content.hash, "next");
+			}
+		}
+		else if(e.keyCode == 39){
+			keyIsDown = true;
+			
+			// right arrow
+			if(!loading){
+				retrieveContent(content.hash, "previous");
+			}
 		}
 	}
-	else if(e.keyCode == 39){
-		// right arrow
-		if(!loading){
-			retrieveContent(content.hash, "previous");
-		}
+});
+
+$(document).keyup(function(e){
+	if(e.keyCode == 37 || e.keyCode == 39){
+		 keyIsDown = false;
 	}
 });
 
