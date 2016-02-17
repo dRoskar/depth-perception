@@ -63,8 +63,8 @@ function retrieveContent(hash, nav){
 					content.images["layer" + i] = {
 							url: data[i + 2] == null ? "images/empty.gif" : data[i + 2],
 							imageObj: new Image(),
-							x: c.width / 2,
-							y: c.height / 2,
+							x: "",
+							y: "",
 							factor: settings["layer" + i + "Factor"]
 					};
 				}
@@ -120,8 +120,21 @@ function imagesLoaded(){
 	hideLoadingAnimation();
 	
 	// set canvas size
-	c.width = content.width;
-	c.height = content.height;
+	if(content.width == null || content.height == null){
+		// set canvas size to fit largest image
+		
+		// find largest image
+		var largestImage = getLargestImage(content.images);
+		
+		// set canvas size considering the maneuver space
+		c.width = largestImage.imageObj.width / (1 + largestImage.factor);
+		c.height = largestImage.imageObj.height / (1 + largestImage.factor);
+	}
+	else{
+		// set canvas size as provided
+		c.width = content.width;
+		c.height = content.height;
+	}
 	
 	// set initial image positions relative to canvas
 	for(var i = 1; i < getObjectSize(content.images) + 1; i++){
@@ -162,8 +175,8 @@ function glide(e){
 	var mousePosition = getCanvasRelevantPosition(canvas, e.clientX, e.clientY);
 	
 	//convert to central coord sys
-	mousePosition.x -= 512;
-	mousePosition.y -= 288;
+	mousePosition.x -= c.width / 2;
+	mousePosition.y -= c.height / 2;
 	
 	// update image positions
 	for(var key in content.images){
@@ -278,17 +291,17 @@ function getCanvasRelevantPosition(canvas, x, y){
 function drawInstructionalRect(){
 	//wheat border
 	ctx.fillStyle = "#EFDFAF";
-	ctx.fillRect(386, 194, 252, 42);
+	ctx.fillRect((c.width/2) - 126, (c.height/2) - 94, 252, 42);
 	
 	//rectangle base
 	ctx.fillStyle = "#000000";
-	ctx.fillRect(387, 195, 250, 40);
+	ctx.fillRect((c.width/2) - 125, (c.height/2) - 93, 250, 40);
 	
 	//text
 	ctx.textAlign = "center";
 	ctx.fillStyle = "#EFDFAF";
 	ctx.font = "24px Times New Roman";
-	ctx.fillText("your mouse goes here", 512, 220);
+	ctx.fillText("your mouse goes here", (c.width/2), (c.height/2) - 68);
 }
 
 function getUrlParams() {
@@ -319,4 +332,22 @@ function getObjectSize(object){
 	}
 	
 	return count;
+}
+
+function getLargestImage(images){
+	var largestImage = null;
+	var prevSurface = 0;
+	
+	// front to back
+	for(var i = getObjectSize(images); i > 0; i--){
+		var img = images["layer" + i].imageObj;
+		var surface = img.width * img.height;
+		
+		if(surface > prevSurface){
+			prevSurface = surface;
+			largestImage = images["layer" + i];
+		}
+	}
+	
+	return largestImage;
 }
