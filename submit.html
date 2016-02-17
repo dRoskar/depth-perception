@@ -5,79 +5,33 @@
 		<meta charset="UTF-8" />
 		<meta name="keywords" content="art, depth, perception, art with depth, moving, images, pixelart, depth perception, depthperception, submit" />
 		<meta name="author" content="Damjan Roškar" />
-		<title>Depth Perception - Submit your art</title>
+		<title>Depth Perception - Submit</title>
+		
+		<!-- font -->
 		<link href='http://fonts.googleapis.com/css?family=VT323' rel='stylesheet' type='text/css' />
+		
+		<!-- stylesheet -->
 		<link rel="stylesheet" type="text/css" href="style/style.css">
+		
+		<!-- jQuery -->
+		<script src="libraries/jquery-1.12.0.min.js"></script>
+		
 	</head>
 	
 	<body>
-		<h1>Submit Your Art</h1>
-		
+		<br />
+				
+		<br />
+		<br />
 		<table id="navigationTable">
 			<tr>
-				<td class="navtd" ><a href="index.html" >Gallery</a></td>
-				<td class="navtd" ><a href="about.html" >About</a></td>
-				<td class="navtd" ><a href="contact.html" >Contact</a></td>
+				<td class="navtd" ><button id="galleryButton" >gallery</button></td>
+				<td class="navtd" ><button id="contactButton" >contact</button></td>
 			</tr>
 		</table>
-		
 		<br />
-		
-		<h2 class="marg" >How it works</h2>
-		
-		<p class="marg" >
-			In order to submit your own art to be hosted on this site you need to have some basic idea of how the technology behind it actually works. So here are some quick and simple guidelines.
-			<ul  class="marg" >
-				<li>Each piece in the gallery is made of up to 10 layers (each layer is an image file).</li>
-				<li>The frontmost layer is layer 10, the one at the back is layer 1.</li>
-				<li>You must submit at least two images, otherwise the purpose of the site is not reached, and you should probably submit your art elsewhere.</li>
-				<li>In order to see past the front layers, the images you submit must have at least some transparent parts.</li>
-				<li>The size of the display canvas is 1024x576, but the images move offscreen when you move the mouse, this means that the images must be larger than the canvas, if you don't want their edges to show.</li>
-				<li>Ideal image sizes are listed below.</li>
-				<li>It is also allowed to submit a smaller piece than 1024x576. If this is the case, and you don't want the edges of your images to show your piece will receive a black frame, but you must request this feature with your submission.</li>
-				<li>This is a free hosted, non-profit website. This means that there is no space to host images on this server and all of the images that you submit will be hosted on a different site (imgur.com). This means that if imgur is down, so is this site.</li>
-				<li>Because this is a free hosted site, you will need to send all of your submissions oldschool style - through email. (2015 edit: used to be free hosted*)</li>
-				<li>When your art shows up in the gallery it might come out different than you anticipated. In this case you are welcome to contact me for a discussion about any needed corrections.</li>
-			</ul>
-		</p>
-		
-		<br />
-		<h2 class="marg" >Submission email requirements</h2>
-		<p class="marg" >
-			<ul  class="marg" >
-				<li>Include the title of the image.</li>
-				<li>Include your name or pseudonym.</li>
-				<li>Make sure to make it known which image fits on which layer. The best way to do this is to name your images Layer1, Layer2, etc. Or if you are sending URL links to your images write something like Layer1: www.imagehostingsite.com/myimage.png, etc.</li>
-				<li>You may want to include a link to your personal website or portfolio and the name of the website. Example: website:depthartist.deviantart.com; website name:'deviant art portfolio'. Only websites that have something to do with the art you make will be accepted.</li>
-				<br />
-				<li>Please note that your personal information will only be used for the purposes of promoting your work on this website.</li>
-			</ul>
-		</p>
-		
-		<br />
-		<h2 class="marg" >Ideal image sizes</h2>
-		<p class="marg" >
-			<ul  class="marg" >
-				<li>Layer 1: 1050x591</li>
-				<li>Layer 2: 1076x605</li>
-				<li>Layer 3: 1101x620</li>
-				<li>Layer 4: 1127x634</li>
-				<li>Layer 5: 1152x648</li>
-				<li>Layer 6: 1178x663</li>
-				<li>Layer 7: 1204x677</li>
-				<li>Layer 8: 1229x692</li>
-				<li>Layer 9: 1255x706</li>
-				<li>Layer 10: 1280x720</li>
-			</ul>
-			<br />
-		
-		<a href="testTool.html" target="testTool" ><span id="submit" class="center_text_button" >[TEST YOUR ART]</span></a>
-		<br>
-		<a href="contact.html" ><span id="submit" class="center_text_button" >[SUBMIT YOUR ART]</span></a>
-		
-		<br />
-		<br />
-		<br />
+		<script src="script/settings.js"></script>
+		<script src="script/submit.js"></script>
 	</body>
 	
 </html>
