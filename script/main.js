@@ -265,7 +265,7 @@ $("#contactButton").click(function(){
 });
 
 // --------------- keypress ---------------
-$(document).keypress(function(e){
+$(document).keydown(function(e){
 	if(e.keyCode == 37){
 		// left arrow
 		if(!loading){
