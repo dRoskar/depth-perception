@@ -3,12 +3,11 @@ $(document).ready(function(){
 	ctx = c.getContext("2d");
 	
 	// get canvas contents
-//	retrieveContent(params.i, null);
+	dataAccess.loadContent("3x4mpl3", null);
 });
 
 //----------------- buttons -----------------
 $("#galleryButton").click(function(){
-	console.log("suo");
 	window.location.href = "/depth_perception";
 });
 

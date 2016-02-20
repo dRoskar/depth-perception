@@ -18,103 +18,20 @@ $(document).ready(function(){
 	// get url page parameter
 	var params = getUrlParams();
 	
-	if(params.i == null){
-		params.i = "";
-	}
-	
 	// get canvas contents
-	retrieveContent(params.i, null);
-});
-
-function retrieveContent(hash, nav){
-	// clear old redraw interval
-	if(redrawIntervalId != null){
-		clearInterval(redrawIntervalId);
-	}
-	
 	loading = true;
-	
 	showLoadingAnimation();
 	
-	if(nav == null){
-		nav = "";
-	}
-	
-	$.get("backend/getContent.php?i=" + hash + "&n=" + nav, function(data){
-		if(data == "false"){
-			// error
-		}
-		else{
-			loadedCount = 0;
-			
-			// save retrieved content
-			data = JSON.parse(data);
-			
-			if(!data.hasOwnProperty("error")){
-				content = {
-					title: data[1],
-					author: (data[2] == "" || data[2] == null) ? "Anonymous" : data[2],
-					images: {},
-					hash: data[14],
-					width: data[15],
-					height: data[16]
-				};
-				
-				for(var i = 1; i < 11; i++){
-					content.images["layer" + i] = {
-							url: data[i + 2] == null ? "images/empty.gif" : data[i + 2],
-							imageObj: new Image(),
-							x: "",
-							y: "",
-							factor: settings["layer" + i + "Factor"]
-					};
-				}
-			}
-			else{
-				// get 404 images
-				hideLoadingAnimation();
-				retrieveContent("404", null);
-				return;
-			}
-			
-			page = content.page;
-			
-			// supply source to image objects and wait for all images to load
-			for(var key in content.images){
-				var url = content.images[key].url;
-				
-				// notify onload
-				content.images[key].imageObj.onload = function(){
-					loadedCount++;
-					
-					if(loadedCount == 10){
-						imagesLoaded();
-					}
-				}
-				
-				// switch src to a local 404 image if images doesn't exist
-				content.images[key].imageObj.onerror = function(){
-					this.onerror = null;
-					this.src = "images/localContent/missingImage.png";
-				}
-				
-				// set image src
-				content.images[key].imageObj.src = url;
-			}
-			
-			// display image info
-			$("#title").html(content.title);
-			$("#author").html(content.author);
-			
-			// supply direct link url
-			$("#textBoxShare").val(getUrlWithoutParameters() + "?i=" + content.hash);
-		}
-	});
-}
+	dataAccess.loadContent(params.i, null, imagesLoaded);
+});
 
 function imagesLoaded(){
-	//clone content
+	content = dataAccess.getContent();
+	
+	// copy content
 	contentCopy = content;
+	
+	showInfo(content);
 	
 	loading = false;
 	
@@ -150,6 +67,15 @@ function imagesLoaded(){
 	$("#canvas").mousemove(function(e){
 		glide(e);
 	});
+}
+
+function showInfo(content){
+	// display image info
+	$("#title").html(content.title);
+	$("#author").html(content.author);
+	
+	// supply direct link url
+	$("#textBoxShare").val(getUrlWithoutParameters() + "?i=" + content.hash);
 }
 
 function redraw(){
@@ -235,14 +161,30 @@ function drawLoadingImage(loadingImg){
 $("#AL").click(function(){
 	// next page
 	if(!loading){
-		retrieveContent(content.hash, "next");
+		// clear old redraw interval
+		if(redrawIntervalId != null){
+			clearInterval(redrawIntervalId);
+		}
+		
+		loading = true;
+		showLoadingAnimation();
+		
+		dataAccess.loadContent(content.hash, "next", imagesLoaded);
 	}
 });
 
 $("#AR").click(function(){
 	// prev page
 	if(!loading){
-		retrieveContent(content.hash, "previous");
+		// clear old redraw interval
+		if(redrawIntervalId != null){
+			clearInterval(redrawIntervalId);
+		}
+		
+		loading = true;
+		showLoadingAnimation();
+		
+		dataAccess.loadContent(content.hash, "previous", imagesLoaded);
 	}
 });
 
@@ -268,14 +210,20 @@ $("#contactButton").click(function(){
 // --------------- arrow keys ---------------
 $(document).keydown(function(e){
 	if(!keyIsDown){
-		console.log("keypress");
 		if(e.keyCode == 37){
 			 keyIsDown = true;
 			
 			// left arrow
 			if(!loading){
+				// clear old redraw interval
+				if(redrawIntervalId != null){
+					clearInterval(redrawIntervalId);
+				}
 				
-				retrieveContent(content.hash, "next");
+				loading = true;
+				showLoadingAnimation();
+				
+				dataAccess.loadContent(content.hash, "next", imagesLoaded);
 			}
 		}
 		else if(e.keyCode == 39){
@@ -283,7 +231,15 @@ $(document).keydown(function(e){
 			
 			// right arrow
 			if(!loading){
-				retrieveContent(content.hash, "previous");
+				// clear old redraw interval
+				if(redrawIntervalId != null){
+					clearInterval(redrawIntervalId);
+				}
+				
+				loading = true;
+				showLoadingAnimation();
+				
+				dataAccess.loadContent(content.hash, "previous", imagesLoaded);
 			}
 		}
 	}
