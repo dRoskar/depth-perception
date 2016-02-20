@@ -1,12 +1,18 @@
 // data access module
 var dataAccess = function(){
 	var loadedCount = 0;
+	var loading = false;
 	var content = null;
 	
+	// public methods
 	return {
-		getContent: function(){ return content },
+		isLoading: function() { return loading; },
 		
-		loadContent: function(hash, nav, callback){
+		getContent: function() { return content; },
+		
+		loadContent: function(hash, nav, callback) {
+			loading = true;
+			
 			if(hash == null){
 				hash = "";
 			}
@@ -15,7 +21,7 @@ var dataAccess = function(){
 				nav = "";
 			}
 			
-			$.get("backend/getContent.php?i=" + hash + "&n=" + nav, function(data){
+			$.get("backend/getContent.php?i=" + hash + "&n=" + nav, function(data) {
 				if(data == "false"){
 					// error
 				}
@@ -63,6 +69,8 @@ var dataAccess = function(){
 								// all images loaded
 								if(typeof(callback) == "function"){
 									callback();
+									
+									loading = false;
 								}
 							}
 						}
@@ -80,7 +88,7 @@ var dataAccess = function(){
 			});
 		},
 		
-		submitContent: function(){
+		submitContent: function() {
 			console.log("I don't do anything yet");
 		}
 	};

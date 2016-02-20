@@ -1,10 +1,21 @@
-$(document).ready(function(){
-	c = $("#canvas").get(0);
-	ctx = c.getContext("2d");
+$(document).ready(function() {
+	// begin canvas drawing loop
+	canvasControl.beginDrawLoop();
+	
+	// show loading animation
+	canvasControl.showLoadingAnimation();
 	
 	// get canvas contents
-	dataAccess.loadContent("3x4mpl3", null);
+	dataAccess.loadContent("3x4mpl3", null, imagesLoaded);
 });
+
+function imagesLoaded() {
+	// feed content to the canvas module
+	canvasControl.setContent(dataAccess.getContent());
+	
+	// hide loading animation
+	canvasControl.hideLoadingAnimation();
+}
 
 //----------------- buttons -----------------
 $("#galleryButton").click(function(){
