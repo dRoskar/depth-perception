@@ -108,6 +108,16 @@ a {
 	margin-left: 10px;
 }
 
+.sizetb {
+	margin-top: 10px;
+	margin-bottom: 5px;
+	width: 30px;
+}
+
+#customSizeDiv {
+	display: none;
+}
+
 #textBoxShare {
 	margin-top: 30px;
 	width: 300px;

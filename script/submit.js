@@ -26,6 +26,9 @@ $("#defaultButton").click(function(){
 		// untoggle other buttons
 		$("#autoButton").removeClass("toggled");
 		$("#customButton").removeClass("toggled");
+		
+		// hide custom size input fields
+		$("#customSizeDiv").slideUp();
 	}
 });
 
@@ -37,6 +40,9 @@ $("#autoButton").click(function(){
 		// untoggle other buttons
 		$("#defaultButton").removeClass("toggled");
 		$("#customButton").removeClass("toggled");
+		
+		// hide custom size input fields
+		$("#customSizeDiv").slideUp();
 	}
 });
 
@@ -44,6 +50,9 @@ $("#customButton").click(function(){
 	if(!$(this).hasClass("toggled")){
 		// toggle button
 		$(this).addClass("toggled");
+		
+		// show custom size input fields
+		$("#customSizeDiv").slideDown();
 		
 		// untoggle other buttons
 		$("#autoButton").removeClass("toggled");
