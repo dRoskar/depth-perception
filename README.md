@@ -15,5 +15,6 @@ I like this project so I decided to remake it.
  ## TO-DO
  - make a user submission interface
  - allow canvas size setting (at submission). User can choose default, auto or custom size.
+ - separate downloading and packaging methods in data access module. Packaging can be used separately after user provides data in the submission form.
  - allow image aligning (at submission). User can select a layer and drag an image around. Offset is saved to DB. When the Adjust button is toggled, the input fields turn into toggle buttons names 'Layer #'. Cursor over canvas shows that the image is draggable.
  - remember previous users - not showing them the 'your mouse goes here' instruction
