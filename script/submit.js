@@ -61,6 +61,32 @@ $("#customButton").click(function(){
 });
 
 $("#testButton").click(function(){
+	// collect image urls
+	var empty = true;
+	var imageUrls = [];
+	
+	for(var i = 1; i < 11; i++){
+		var url = $("#l" + i + "tb").val();
+		
+		if(url !== ""){
+			empty = false;
+			
+			imageUrls.push(url);
+		}
+		else{
+			imageUrls.push(null);
+		}
+	}
+	
+	if(!empty){
+		// package content
+		var content = dataAccess.packageLocalContent("", "", imageUrls, 1024, 576);
+		
+		if(content !== false){
+			// prepare content
+			dataAccess.prepareContent(content, imagesLoaded);
+		}
+	}
 });
 
 $("#adjustButton").click(function(){
