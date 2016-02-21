@@ -108,6 +108,9 @@ var canvasControl = function() {
 	
 	// public methods
 	return {
+		
+		getContent: function() { return content; },
+		
 		setContent: function(cn, callback) {
 			content = cn;
 			

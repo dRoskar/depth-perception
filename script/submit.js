@@ -9,9 +9,9 @@ $(document).ready(function() {
 	dataAccess.loadContent("3x4mpl3", null, imagesLoaded);
 });
 
-function imagesLoaded() {
+function imagesLoaded(content) {
 	// feed content to the canvas module
-	canvasControl.setContent(dataAccess.getContent());
+	canvasControl.setContent(content);
 	
 	// hide loading animation
 	canvasControl.hideLoadingAnimation();

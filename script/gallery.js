@@ -14,12 +14,12 @@ $(document).ready(function() {
 	dataAccess.loadContent(params.i, null, imagesLoaded);
 });
 
-function imagesLoaded() {
+function imagesLoaded(content) {
 	// display content information under the canvas
-	showInfo(dataAccess.getContent());
+	showInfo(content);
 	
 	// feed content to the canvas module
-	canvasControl.setContent(dataAccess.getContent());
+	canvasControl.setContent(content);
 	
 	// hide loading animation
 	canvasControl.hideLoadingAnimation();
@@ -41,7 +41,7 @@ $("#AL").click(function() {
 		canvasControl.showLoadingAnimation();
 		
 		// load next page
-		dataAccess.loadContent(dataAccess.getContent().hash, "next", imagesLoaded);
+		dataAccess.loadContent(canvasControl.getContent().hash, "next", imagesLoaded);
 	}
 });
 
@@ -51,7 +51,7 @@ $("#AR").click(function() {
 		canvasControl.showLoadingAnimation();
 		
 		// load prev page
-		dataAccess.loadContent(dataAccess.getContent().hash, "previous", imagesLoaded);
+		dataAccess.loadContent(canvasControl.getContent().hash, "previous", imagesLoaded);
 	}
 });
 
@@ -82,7 +82,7 @@ keyboard.registerKeyDownAction(37, function() {
 		canvasControl.showLoadingAnimation();
 		
 		// load next page
-		dataAccess.loadContent(dataAccess.getContent().hash, "next", imagesLoaded);
+		dataAccess.loadContent(canvasControl.getContent().hash, "next", imagesLoaded);
 	}
 });
 
@@ -93,6 +93,6 @@ keyboard.registerKeyDownAction(39, function() {
 		canvasControl.showLoadingAnimation();
 		
 		// load previous page
-		dataAccess.loadContent(dataAccess.getContent().hash, "previous", imagesLoaded);
+		dataAccess.loadContent(canvasControl.getContent().hash, "previous", imagesLoaded);
 	}
 });
