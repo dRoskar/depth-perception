@@ -1,26 +1,24 @@
 body {
-	background-color:#000000;
+	background-color: #000000;
+	color: #EFDFAF;
+	font-family: "VT323",cursive;
 }
 
 h1 {
-	color:#EFDFAF;
-	text-align:center;
-	font-family:"VT323",cursive;
-	font-size:42px;
+	text-align: center;
+	font-size: 42px;
 }
 
 h2 {
-	color:#EFDFAF;
-	font-family:"VT323",cursive;
-	font-size:31px;
+	font-size: 31px;
 }
 
 hr {
-	border-color:#DFBF5F;
+	border-color: #DFBF5F;
 }
 
 #mainTable {
-	margin-left:auto;
+	margin-left: auto;
 	margin-right: auto;
 }
 
@@ -31,26 +29,28 @@ hr {
 }
 
 #canvas_cell {
-	text-align:center;
+	text-align: center;
+}
+
+.submitCanvas {
+	margin-left: 10px;
 }
 
 #infotable {
 	width: 100%;
-	text-align:center;
-	color:#EFDFAF;
-	font-family:"VT323",cursive;
-	font-size:24px;
+	text-align: center;
+	font-size: 24px;
 }
 
 #title {
 	width: 45%;
-	color:#DFBF5F;
+	color: #DFBF5F;
 	text-align: right;
 }
 
 #author {
 	width: 45%;
-	color:#DFBF5F;
+	color: #DFBF5F;
 	text-align: left;
 }
 
@@ -58,35 +58,29 @@ hr {
 	width: 10%;
 }
 
-a:link {
-	color:#EFDFAF;
-}
-
 a:visited {
-	color:#EFDFAF;
+	color: #EFDFAF;
 }
 
 a {
-	text-decoration:none;
+	text-decoration: none;
 }
 
 .navtd {
-	width:100px;
+	width: 100px;
 }
 
 #personalUrl {
-	color:#DFBF5F;
-	color:#DFBF5F;
-	border-bottom:2px solid #DFBF5F;
+	color: #DFBF5F;
+	color: #DFBF5F;
+	border-bottom: 2px solid #DFBF5F;
 }
 
 #navigationTable {
-	margin-left:auto;
+	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
-	color:#EFDFAF;
-	font-family:"VT323",cursive;
-	font-size:24px;
+	font-size: 24px;
 }
 
 #AL {
@@ -99,43 +93,43 @@ a {
 	margin-left: 25px;
 }
 
+
+.textBox {
+	background-color: #000000;
+	border: 1px solid #EFDFAF;
+	color: #EFDFAF;
+	border-radius: 3px;
+	text-align: center;
+}
+
+.urltb {
+	margin-bottom: 10px;
+	margin-right: 10px;
+	margin-left: 10px;
+}
+
 #textBoxShare {
 	margin-top: 30px;
-	background-color:#000000;
-	border: 1px solid #EFDFAF;
 	width: 300px;
-	color:#EFDFAF;
-	border-radius:3px;
-	text-align:center;
 }
 
 p {
-	color:#EFDFAF;
-	font-family:"VT323",cursive;
-	font-size:20px;
+	font-size: 20px;
 }
 
 .marg {
-	margin-left:20px;
-	margin-right:20px;
+	margin-left: 20px;
+	margin-right: 20px;
 }
 
 ul {
-	color:#EFDFAF;
-	font-family:"VT323",cursive;
-	font-size:20px;
-}
-
-span.center_text_button {
-	display:block;
-	color:#DFBF5F;
-	text-align:center;
-	font-family:"VT323",cursive;
-	font-size:31px;
+	color: #EFDFAF;
+	font-family: "VT323",cursive;
+	font-size: 20px;
 }
 
 #link {
-	color:#DFBF5F;
+	color: #DFBF5F;
 }
 
 .centerTd {
@@ -151,12 +145,23 @@ button {
 	font-family: "VT323",cursive;
 }
 
+#testButton, #adjustButton {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.importantButton {
+	color: #DFBF5F;
+}
+
 #copyButton {
 	margin-left: 10px;	
 }
 
+.settingsTitle {
+	font-size: 22px;
+}
+
 .text {
-	color: #EFDFAF;
 	font-size: 24px;
-	font-family: "VT323",cursive;
 }

@@ -22,11 +22,46 @@
 		<br />
 		<table id="mainTable">
 			<tr>
-				<td></td>
-				<td id="canvas_cell"><canvas id="canvas" width="250" height="200"></canvas></td>
+				<td class="centerTd">
+					<input id="l1tb" class="textBox urltb" type="text" placeholder="layer 1 image url"></input>
+					<br />
+					<input id="l2tb" class="textBox urltb" type="text" placeholder="layer 2 image url"></input>
+					<br />
+					<input id="l3tb" class="textBox urltb" type="text" placeholder="layer 3 image url"></input>
+					<br />
+					<input id="l4tb" class="textBox urltb" type="text" placeholder="layer 4 image url"></input>
+					<br />
+					<input id="l5tb" class="textBox urltb" type="text" placeholder="layer 5 image url"></input>
+					<br />
+					<input id="l6tb" class="textBox urltb" type="text" placeholder="layer 6 image url"></input>
+					<br />
+					<input id="l7tb" class="textBox urltb" type="text" placeholder="layer 7 image url"></input>
+					<br />
+					<input id="l8tb" class="textBox urltb" type="text" placeholder="layer 8 image url"></input>
+					<br />
+					<input id="l9tb" class="textBox urltb" type="text" placeholder="layer 9 image url"></input>
+					<br />
+					<input id="l10tb" class="textBox urltb" type="text" placeholder="layer 10 image url"></input>
+					<hr>
+					<span class="settingsTitle" >canvas size</span>
+					<br />
+					<input type="radio" name="canvasSize" >default (1024x576)</input>
+					<br />
+					<input type="radio" name="canvasSize" >auto</input>
+					<br />
+					<input type="radio" name="canvasSize" >custom</input>
+					<hr>
+					<button id="testButton">test</button>
+					<button id="adjustButton">adjust</button>
+					<br />
+					<button id="submitButton" class="importantButton" >submit</button>
+				</td>
+				<td id="canvas_cell"><canvas id="canvas" class="submitCanvas" width="1024" height="576"></canvas></td>
 				<td></td>
 			</tr>
 		</table>
+		<br />
+		<br />
 		<br />
 		<br />
 		<table id="navigationTable">
