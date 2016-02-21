@@ -75,37 +75,24 @@ $("#contactButton").click(function() {
 });
 
 // --------------- arrow keys ---------------
-$(document).keydown(function(e) {
-	if(!keyIsDown){
-		if(e.keyCode == 37){
-			 keyIsDown = true;
-			
-			// left arrow
-			if(!dataAccess.isLoading()){
-				// show loading animation
-				canvasControl.showLoadingAnimation();
-				
-				// load next page
-				dataAccess.loadContent(dataAccess.getContent().hash, "next", imagesLoaded);
-			}
-		}
-		else if(e.keyCode == 39) {
-			keyIsDown = true;
-			
-			// right arrow
-			if(!dataAccess.isLoading()){
-				// show loading animation
-				canvasControl.showLoadingAnimation();
-				
-				// load prev page
-				dataAccess.loadContent(dataAccess.getContent().hash, "previous", imagesLoaded);
-			}
-		}
+// left arrow key
+keyboard.registerKeyDownAction(37, function() {
+	if(!dataAccess.isLoading()){
+		// show loading animation
+		canvasControl.showLoadingAnimation();
+		
+		// load next page
+		dataAccess.loadContent(dataAccess.getContent().hash, "next", imagesLoaded);
 	}
 });
 
-$(document).keyup(function(e) {
-	if(e.keyCode == 37 || e.keyCode == 39){
-		 keyIsDown = false;
+// right arrow key
+keyboard.registerKeyDownAction(39, function() {
+	if(!dataAccess.isLoading()){
+		// show loading animation
+		canvasControl.showLoadingAnimation();
+		
+		// load previous page
+		dataAccess.loadContent(dataAccess.getContent().hash, "previous", imagesLoaded);
 	}
 });
