@@ -141,8 +141,42 @@ button {
 	border: 1px solid;
 	border-color: #EFDFAF;
 	color: #EFDFAF;
-	font-size: 24px;
 	font-family: "VT323",cursive;
+}
+
+button.big {
+	font-size: 24px;
+}
+
+button.medium {
+	font-size: 20px;
+}
+
+button.small {
+	font-size: 16px;
+}
+
+button.untoggled {
+	border-style: outset;
+}
+
+button.toggled {
+	color: #DFBF5F;
+	border-style: inset;
+	border-color: #DFBF5F;
+}
+
+button.disabled {
+	color: #454032 !important;
+	border-color: #454032 !important;
+}
+
+#defaultButton {
+	margin-top: 10px;
+}
+
+#defaultButton, #autoButton, #customButton {
+	margin-bottom: 6px;
 }
 
 #testButton, #adjustButton {
@@ -150,7 +184,7 @@ button {
 	margin-bottom: 10px;
 }
 
-.importantButton {
+button.important {
 	color: #DFBF5F;
 }
 

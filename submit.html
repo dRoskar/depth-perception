@@ -45,16 +45,16 @@
 					<hr>
 					<span class="settingsTitle" >canvas size</span>
 					<br />
-					<input type="radio" name="canvasSize" >default (1024x576)</input>
+					<button id="defaultButton" class="toggled small" >default (1024x576)</button>
 					<br />
-					<input type="radio" name="canvasSize" >auto</input>
+					<button id="autoButton" class="untoggled small" >auto</button>
 					<br />
-					<input type="radio" name="canvasSize" >custom</input>
+					<button id="customButton" class="untoggled small" >custom</button>
 					<hr>
-					<button id="testButton">test</button>
-					<button id="adjustButton">adjust</button>
+					<button id="testButton" class="big">test</button>
+					<button id="adjustButton" class="untoggled big">adjust</button>
 					<br />
-					<button id="submitButton" class="importantButton" >submit</button>
+					<button id="submitButton" class="big important disabled" >submit</button>
 				</td>
 				<td id="canvas_cell"><canvas id="canvas" class="submitCanvas" width="1024" height="576"></canvas></td>
 				<td></td>
@@ -66,8 +66,8 @@
 		<br />
 		<table id="navigationTable">
 			<tr>
-				<td class="navtd" ><button id="galleryButton" >gallery</button></td>
-				<td class="navtd" ><button id="contactButton" >contact</button></td>
+				<td class="navtd" ><button id="galleryButton" class="big" >gallery</button></td>
+				<td class="navtd" ><button id="contactButton" class="big" >contact</button></td>
 			</tr>
 		</table>
 		<br />
