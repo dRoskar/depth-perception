@@ -1,5 +1,3 @@
- var keyIsDown = false;
- 
 $(document).ready(function() {
 	// get url page parameter
 	var params = tools.getUrlParams();
