@@ -1,4 +1,7 @@
 var settings = {
+	defaultCanvasWidth: 1024,
+	defaultCanvasHeight: 576,
+		
 	layer1Factor: 0.025,
 	layer2Factor: 0.05,
 	layer3Factor: 0.075,

@@ -29,6 +29,9 @@ $("#defaultButton").click(function(){
 		
 		// hide custom size input fields
 		$("#customSizeInput").slideUp();
+		
+		// update canvas size
+		canvasControl.setCanvasSize(settings.defaultCanvasWidth, settings.defaultCanvasHeight);
 	}
 });
 
@@ -43,6 +46,9 @@ $("#autoButton").click(function(){
 		
 		// hide custom size input fields
 		$("#customSizeInput").slideUp();
+		
+		// update canvas size
+		canvasControl.setCanvasSize(null, null);
 	}
 });
 
@@ -86,6 +92,9 @@ $("#testButton").click(function(){
 			// prepare content
 			dataAccess.prepareContent(content, imagesLoaded);
 		}
+	}
+	else{
+		alert("Paste some image links to the input boxes first");
 	}
 });
 

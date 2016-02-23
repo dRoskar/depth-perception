@@ -115,21 +115,7 @@ var canvasControl = function() {
 			content = cn;
 			
 			// set canvas size
-			if(content.width == null || content.height == null){
-				// set canvas size to fit largest image
-				
-				// find largest image
-				var largestImage = findLargestImage(content.images);
-				
-				// set canvas size considering the maneuver space
-				c.width = largestImage.imageObj.width / (1 + largestImage.factor);
-				c.height = largestImage.imageObj.height / (1 + largestImage.factor);
-			}
-			else{
-				// set canvas size as provided
-				c.width = content.width;
-				c.height = content.height;
-			}
+			canvasControl.setCanvasSize(content.width, content.height);
 			
 			// set initial image positions relative to canvas
 			for(var i = 1; i < tools.getObjectSize(content.images) + 1; i++){
@@ -159,6 +145,24 @@ var canvasControl = function() {
 		
 		hideLoadingAnimation: function() {
 			loading = false;
+		},
+		
+		setCanvasSize: function(width, height) {
+			if(width == null || height == null){
+				// set canvas size to fit largest image
+				
+				// find largest image
+				var largestImage = findLargestImage(content.images);
+				
+				// set canvas size considering the maneuver space
+				c.width = largestImage.imageObj.width / (1 + largestImage.factor);
+				c.height = largestImage.imageObj.height / (1 + largestImage.factor);
+			}
+			else{
+				// set canvas size as provided
+				c.width = width;
+				c.height = height;
+			}
 		}
 	};
 }();
