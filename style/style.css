@@ -154,6 +154,10 @@ button {
 	font-family: "VT323",cursive;
 }
 
+button:focus {
+	outline: 0;
+}
+
 button.big {
 	font-size: 24px;
 }
