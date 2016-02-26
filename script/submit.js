@@ -85,6 +85,10 @@ $(document).ready(function() {
 			
 			// update canvas size
 			canvasControl.setCanvasSize(settings.defaultCanvasWidth, settings.defaultCanvasHeight);
+			
+			// hide custom size tooltips
+			$("#sizeXTb").qtip("api").hide();
+			$("#sizeYTb").qtip("api").hide();
 		}
 	});
 
@@ -103,6 +107,10 @@ $(document).ready(function() {
 			
 			// update canvas size
 			canvasControl.setCanvasSize(null, null);
+			
+			// hide custom size tooltips
+			$("#sizeXTb").qtip("api").hide();
+			$("#sizeYTb").qtip("api").hide();
 		}
 	});
 
@@ -115,7 +123,8 @@ $(document).ready(function() {
 			$("#customSizeInput").slideDown();
 			
 			// change canvas size
-			canvasControl.setCanvasSize($("#sizeXTb").val(), $("#sizeYTb").val());
+			onSizeInputChange($("#sizeXTb").get()[0]);
+			onSizeInputChange($("#sizeYTb").get()[0]);
 			
 			// enable size input fields
 			monitorInputFields(true);
