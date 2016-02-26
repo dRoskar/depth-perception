@@ -12,9 +12,13 @@
 		
 		<!-- stylesheet -->
 		<link rel="stylesheet" type="text/css" href="style/style.css">
+		<link rel="stylesheet" type="text/css" href="style/jquery.qtip.min.css">
 		
 		<!-- jQuery -->
 		<script src="libraries/jquery-1.12.0.min.js"></script>
+		
+		<!-- Qtip -->
+		<script src="libraries/jquery.qtip.min.js"></script>
 		
 	</head>
 	
@@ -53,7 +57,7 @@
 					<button id="customButton" class="untoggled small" >custom</button>
 					<br>
 					<span id="customSizeInput">
-						<input id="sizeXTb" type="text" class="textBox sizetb" ></input> x <input id="sizeYTb" type="text" class="textBox sizetb" ></input>
+						<input id="sizeXTb" type="text" class="textBox sizetb" value="1024" maxlength="4" onfocus="this.select()" ></input> x <input id="sizeYTb" type="text" class="textBox sizetb" value="576" maxlength="4" onfocus="this.select()" ></input>
 					</span>
 					<br>
 					<hr>

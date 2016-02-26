@@ -159,9 +159,26 @@ var canvasControl = function() {
 				c.height = largestImage.imageObj.height / (1 + largestImage.factor);
 			}
 			else{
+				// validate
+				if(width < settings.minimumCanvasWidth || width > settings.maximumCanvasWidth){
+					width = settings.defaultCanvasWidth;
+				}
+				
+				if(height < settings.minimumCanvasHeight || height > settings.maximumCanvasHeight){
+					height = settings.defaultCanvasHeight;
+				}
+				
 				// set canvas size as provided
 				c.width = width;
 				c.height = height;
+			}
+			
+			// update image positions
+			if(content !== null){
+				for(var i = 1; i < tools.getObjectSize(content.images) + 1; i++){
+					content.images["layer" + i].x = c.width / 2;
+					content.images["layer" + i].y = c.height / 2;
+				}
 			}
 		}
 	};

@@ -1,4 +1,45 @@
 $(document).ready(function() {
+	//----------------- buttons -----------------
+	$("#AL").click(function() {
+		if(!dataAccess.isLoading()){
+			// show loading animation
+			canvasControl.showLoadingAnimation();
+			
+			// load next page
+			dataAccess.loadContent(canvasControl.getContent().hash, "next", imagesLoaded);
+		}
+	});
+
+	$("#AR").click(function() {
+		if(!dataAccess.isLoading()){
+			// show loading animation
+			canvasControl.showLoadingAnimation();
+			
+			// load prev page
+			dataAccess.loadContent(canvasControl.getContent().hash, "previous", imagesLoaded);
+		}
+	});
+
+	$("#copyButton").click(function() {
+		// select texbox value
+		$("#textBoxShare").select();
+		
+		// copy selection text to clipboard
+		document.execCommand("copy");
+		
+		// lose textbox focus (unselect text)
+		$("#textBoxShare").blur();
+	});
+
+	$("#submitButton").click(function() {
+		window.location.href = "submit.html";
+	});
+
+	$("#contactButton").click(function() {
+		window.location.href = "contact.html";
+	});
+	//-------------------------------------------
+	
 	// get url page parameter
 	var params = tools.getUrlParams();
 	
@@ -31,46 +72,6 @@ function showInfo(content) {
 	// supply direct link url
 	$("#textBoxShare").val(tools.getUrlWithoutParameters() + "?i=" + content.hash);
 }
-
-//----------------- buttons -----------------
-$("#AL").click(function() {
-	if(!dataAccess.isLoading()){
-		// show loading animation
-		canvasControl.showLoadingAnimation();
-		
-		// load next page
-		dataAccess.loadContent(canvasControl.getContent().hash, "next", imagesLoaded);
-	}
-});
-
-$("#AR").click(function() {
-	if(!dataAccess.isLoading()){
-		// show loading animation
-		canvasControl.showLoadingAnimation();
-		
-		// load prev page
-		dataAccess.loadContent(canvasControl.getContent().hash, "previous", imagesLoaded);
-	}
-});
-
-$("#copyButton").click(function() {
-	// select texbox value
-	$("#textBoxShare").select();
-	
-	// copy selection text to clipboard
-	document.execCommand("copy");
-	
-	// lose textbox focus (unselect text)
-	$("#textBoxShare").blur();
-});
-
-$("#submitButton").click(function() {
-	window.location.href = "submit.html";
-});
-
-$("#contactButton").click(function() {
-	window.location.href = "contact.html";
-});
 
 // --------------- arrow keys ---------------
 // left arrow key

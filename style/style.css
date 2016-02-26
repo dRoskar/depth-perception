@@ -17,6 +17,10 @@ hr {
 	border-color: #DFBF5F;
 }
 
+input:focus {
+	outline: 0;
+}
+
 #mainTable {
 	margin-left: auto;
 	margin-right: auto;
@@ -111,7 +115,7 @@ a {
 .sizetb {
 	margin-top: 10px;
 	margin-bottom: 5px;
-	width: 30px;
+	width: 32px;
 }
 
 #customSizeInput {
@@ -214,3 +218,8 @@ button.important {
 .text {
 	font-size: 24px;
 }
+
+.qtip-custom .qtip-content, .qtip-titlebar{
+	font-size: 14px;
+}
+
