@@ -202,26 +202,34 @@ function imagesLoaded(content) {
 // ----------- custom size inputs -----------
 function monitorInputFields(on){
 	if(on){
-		$("#sizeXTb").on("input paste", onSizeInputChange);
-		$("#sizeYTb").on("input paste", onSizeInputChange);
+		$("#sizeXTb").on("input paste", function(element){
+			onSizeInputChange(element.target);
+		});
+		$("#sizeYTb").on("input paste", function(element){
+			onSizeInputChange(element.target);
+		});
 	}
 	else{
-		$("#sizeXTb").off("input paste", onSizeInputChange);
-		$("#sizeYTb").off("input paste", onSizeInputChange);
+		$("#sizeXTb").off("input paste", function(element){
+			onSizeInputChange(element.target);
+		});
+		$("#sizeYTb").off("input paste", function(element){
+			onSizeInputChange(element.target);
+		});
 	}
 }
 
-function onSizeInputChange(){
+function onSizeInputChange(textBox){
 	// get tooltip api
-	var tooltipApi = $("#" + this.id).qtip("api");
+	var tooltipApi = $("#" + textBox.id).qtip("api");
 	
 	// validate
-	if(isNaN(this.value)){
-		this.value = this.previousValue;
+	if(isNaN(textBox.value)){
+		textBox.value = textBox.previousValue;
 	}
 	else{
-		if(this.value < this.minValue){
-			this.valid = false;
+		if(textBox.value < textBox.minValue){
+			textBox.valid = false;
 			
 			// destory old unexecuted timers
 			if($("#canvas").get()[0].updateSizeTimeoutId != null){
@@ -232,18 +240,18 @@ function onSizeInputChange(){
 			// update tooltip
 			tooltipApi.set("content.title", "Too small!");
 			
-			if(this.id == "sizeXTb"){
+			if(textBox.id == "sizeXTb"){
 				tooltipApi.set("content.text", "minimum: " + settings.minimumCanvasWidth);
 			}
-			else if(this.id == "sizeYTb"){
+			else if(textBox.id == "sizeYTb"){
 				tooltipApi.set("content.text", "minimum: " + settings.minimumCanvasHeight);
 			}
 			
 			// show tooltip
 			tooltipApi.show();
 		}
-		else if(this.value > this.maxValue){
-			this.valid = false;
+		else if(textBox.value > textBox.maxValue){
+			textBox.valid = false;
 			
 			// destory old unexecuted timers
 			if($("#canvas").get()[0].updateSizeTimeoutId != null){
@@ -254,10 +262,10 @@ function onSizeInputChange(){
 			// update tooltip
 			tooltipApi.set("content.title", "Too large!");
 
-			if(this.id == "sizeXTb"){
+			if(textBox.id == "sizeXTb"){
 				tooltipApi.set("content.text", "maximum: " + settings.maximumCanvasWidth);
 			}
-			else if(this.id == "sizeYTb"){
+			else if(textBox.id == "sizeYTb"){
 				tooltipApi.set("content.text", "maximum: " + settings.maximumCanvasHeight);
 			}
 			
@@ -265,7 +273,7 @@ function onSizeInputChange(){
 			tooltipApi.show();
 		}
 		else{
-			this.valid = true;
+			textBox.valid = true;
 			
 			// hide tooltip
 			tooltipApi.hide();
@@ -287,7 +295,7 @@ function onSizeInputChange(){
 			}
 		}
 		
-		this.previousValue = this.value;
+		textBox.previousValue = textBox.value;
 	}
 }
 // ------------------------------------------
