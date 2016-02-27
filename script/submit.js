@@ -80,6 +80,8 @@ $(document).ready(function() {
 			$("#customButton").removeClass("toggled");
 			monitorInputFields(false);
 			
+			$("#autoButton").html("auto");
+			
 			// hide custom size input fields
 			$("#customSizeInput").slideUp();
 			
@@ -105,12 +107,36 @@ $(document).ready(function() {
 			// hide custom size input fields
 			$("#customSizeInput").slideUp();
 			
+			if(canvasControl.getReverseAutoSizeMode()){
+				$("#autoButton").html("auto [B]");
+			}
+			else{
+				$("#autoButton").html("auto [A]");
+			}
+			
 			// update canvas size
 			canvasControl.setCanvasSize(null, null);
 			
 			// hide custom size tooltips
 			$("#sizeXTb").qtip("api").hide();
 			$("#sizeYTb").qtip("api").hide();
+		}
+		else{
+			// pressed again
+			if(canvasControl.getReverseAutoSizeMode()){
+				$("#autoButton").html("auto [A]");
+				canvasControl.setReverseAutoSizeMode(false);
+				
+				// update canvas size
+				canvasControl.setCanvasSize(null, null);
+			}
+			else{
+				$("#autoButton").html("auto [B]");
+				canvasControl.setReverseAutoSizeMode(true);
+				
+				// update canvas size
+				canvasControl.setCanvasSize(null, null);
+			}
 		}
 	});
 
@@ -132,6 +158,8 @@ $(document).ready(function() {
 			// untoggle other buttons
 			$("#autoButton").removeClass("toggled");
 			$("#defaultButton").removeClass("toggled");
+			
+			$("#autoButton").html("auto");
 		}
 	});
 

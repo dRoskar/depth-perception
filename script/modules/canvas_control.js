@@ -8,6 +8,7 @@ var canvasControl = function() {
 	var loadingImage = new Image();
 	var loading = false;
 	var loadingRotation = 1;
+	var reverseAutoSizeMode = false;
 	
 	// init
 	loadingImage.src = "images/loading.svg";
@@ -92,14 +93,28 @@ var canvasControl = function() {
 		var largestImage = null;
 		var prevSurface = 0;
 		
-		// front to back
-		for(var i = tools.getObjectSize(content.images); i > 0; i--){
-			var img = content.images["layer" + i].imageObj;
-			var surface = img.width * img.height;
-			
-			if(surface > prevSurface){
-				prevSurface = surface;
-				largestImage = content.images["layer" + i];
+		if(reverseAutoSizeMode){
+			// back to front
+			for(var i = 1; i < (tools.getObjectSize(content.images) + 1); i++){
+				var img = content.images["layer" + i].imageObj;
+				var surface = img.width * img.height;
+				
+				if(surface > prevSurface){
+					prevSurface = surface;
+					largestImage = content.images["layer" + i];
+				}
+			}
+		}
+		else{
+			// front to back
+			for(var i = tools.getObjectSize(content.images); i > 0; i--){
+				var img = content.images["layer" + i].imageObj;
+				var surface = img.width * img.height;
+				
+				if(surface > prevSurface){
+					prevSurface = surface;
+					largestImage = content.images["layer" + i];
+				}
 			}
 		}
 		
@@ -109,7 +124,11 @@ var canvasControl = function() {
 	// public methods
 	return {
 		
+		getReverseAutoSizeMode: function() { return reverseAutoSizeMode; },
+		
 		getContent: function() { return content; },
+		
+		setReverseAutoSizeMode: function(isReverse) { reverseAutoSizeMode = isReverse; },
 		
 		setContent: function(cn, callback) {
 			content = cn;
