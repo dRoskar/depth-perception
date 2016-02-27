@@ -8,7 +8,6 @@ var canvasControl = function() {
 	var loadingImage = new Image();
 	var loading = false;
 	var loadingRotation = 1;
-	var failedImageIndices = [];
 	
 	// init
 	loadingImage.src = "images/loading.svg";
@@ -114,7 +113,6 @@ var canvasControl = function() {
 		
 		setContent: function(cn, callback) {
 			content = cn;
-			failedImageIndices = [];
 			
 			// set canvas size
 			canvasControl.setCanvasSize(content.width, content.height);

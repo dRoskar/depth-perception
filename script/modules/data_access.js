@@ -2,10 +2,13 @@
 var dataAccess = function(){
 	var loadedCount = 0;
 	var loading = false;
+	var failedLayerNames = [];
 	
 	// public methods
 	return {
 		isLoading: function() { return loading; },
+		
+		getFailedLayerNames : function() { return failedLayerNames; },
 		
 		loadContent: function(hash, nav, callback) {
 			loading = true;
@@ -99,10 +102,13 @@ var dataAccess = function(){
 		
 		prepareContent: function(content, callback) {
 			loadedCount = 0;
+			failedLayerNames = [];
 			
 			// supply source to image objects and wait for all images to load
 			for(var key in content.images){
 				var url = content.images[key].url === null ? "images/empty.gif" : content.images[key].url;
+				
+				content.images[key].imageObj.imageIndex = key;
 				
 				// notify onload
 				content.images[key].imageObj.onload = function(){
@@ -122,6 +128,7 @@ var dataAccess = function(){
 				// switch src to a local 404 image if images doesn't exist
 				content.images[key].imageObj.onerror = function(){
 					this.onerror = null;
+					failedLayerNames.push(this.imageIndex);
 					this.src = "images/localContent/missingImage.png";
 				}
 				

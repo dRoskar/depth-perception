@@ -214,9 +214,26 @@ function imagesLoaded(content, userInput) {
 	userInput = typeof userInput === "undefined" ? false : userInput;
 	
 	if(userInput){
-		// enable submit button
-		$("#submitButton").prop("disabled", false);
-		$("#submitButton").removeClass("disabled");
+		// check if images were valid and loaded successfully
+		failedLayerNames = dataAccess.getFailedLayerNames();
+		
+		if(failedLayerNames.length > 0){
+			// construct error message for user
+			var errorMessage = "";
+			
+			for(var i = 0; i < failedLayerNames.length; i++){
+				var layerNum = failedLayerNames[i].replace("layer", "");
+				errorMessage += "Layer " + layerNum + " URL failed to provide an image. Make sure it's a direct image link and try again.\n\n";
+			}
+			
+			// show error message
+			alert(errorMessage);
+		}
+		else{
+			// enable submit button
+			$("#submitButton").prop("disabled", false);
+			$("#submitButton").removeClass("disabled");
+		}
 	}
 	
 	// feed content to the canvas module
