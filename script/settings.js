@@ -15,5 +15,7 @@ var settings = {
 	layer7Factor: 0.175,
 	layer8Factor: 0.2,
 	layer9Factor: 0.225,
-	layer10Factor: 0.25
+	layer10Factor: 0.25,
+	
+	supportedImageFormats : [".png", ".jpg", ".bmp", ".gif", ".svg"]
 }

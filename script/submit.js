@@ -154,12 +154,22 @@ $(document).ready(function() {
 		}
 		
 		if(!empty){
-			// package content
-			var content = dataAccess.packageLocalContent("", "", imageUrls, 1024, 576);
+			// validate
+			var report = validateImageUrls(imageUrls);
 			
-			if(content !== false){
-				// prepare content
-				dataAccess.prepareContent(content, imagesLoaded);
+			if(report.valid){
+				// package content
+				var content = dataAccess.packageLocalContent("", "", imageUrls, 1024, 576);
+				
+				if(content !== false){
+					// prepare content
+					dataAccess.prepareContent(content, function(content){
+						imagesLoaded(content, true)
+					});
+				}
+			}
+			else{
+				alert(report.errorMessage);
 			}
 		}
 		else{
@@ -200,12 +210,66 @@ $(document).ready(function() {
 	dataAccess.loadContent("3x4mpl3", null, imagesLoaded);
 });
 
-function imagesLoaded(content) {
+function imagesLoaded(content, userInput = false) {
+	if(userInput){
+		// enable submit button
+		$("#submitButton").prop("disabled", false);
+		$("#submitButton").removeClass("disabled");
+	}
+	
 	// feed content to the canvas module
 	canvasControl.setContent(content);
 	
 	// hide loading animation
 	canvasControl.hideLoadingAnimation();
+}
+
+function validateImageUrls(imageUrls) {
+	var report = {
+		valid : true,
+		invalidLayerIndices: [],
+		errorMessage: ""
+	}
+	
+	for(var i = 0; i < imageUrls.length; i++){
+		if(imageUrls[i] !== null){
+			// check length
+			if(imageUrls[i].length > 200){
+				report.invalidLayerIndices.push(i + 1);
+				report.errorMessage += "Layer " + (i + 1) + " URL is too long. Maximum length is 200 characters.\n\n";
+				report.valid = false;
+			}
+			
+			// check if url leads to an image
+			var formatIndex = imageUrls[i].lastIndexOf(".");
+			
+			if(formatIndex !== -1){
+				var imageFormat = imageUrls[i].substring(formatIndex);
+				var allowed = false;
+				
+				for(var j = 0; j < settings.supportedImageFormats.length; j++){
+					if(imageFormat === settings.supportedImageFormats[j]){
+						allowed = true;
+					}
+				}
+				
+				if(!allowed){
+					// invalid image format
+					report.invalidLayerIndices.push(i + 1);
+					report.errorMessage += "Layer " + (i + 1) + " URL needs to end with one of the following: " + settings.supportedImageFormats.join("; ") + ".\n\n";
+					report.valid = false;
+				}
+			}
+			else{
+				// url doesn't seem to lead to an image
+				report.invalidLayerIndices.push(i + 1);
+				report.errorMessage += "Layer " + (i + 1) + " URL needs to end with one of the following: " + settings.supportedImageFormats.join("; ") + ".\n\n";
+				report.valid = false;
+			}
+		}
+	}
+	
+	return report;
 }
 
 // ----------- custom size inputs -----------
