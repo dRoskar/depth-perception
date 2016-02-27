@@ -223,3 +223,6 @@ button.important {
 	font-size: 14px;
 }
 
+input.invalid {
+    border: 1px solid #f06d65;
+}

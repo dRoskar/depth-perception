@@ -141,6 +141,10 @@ $(document).ready(function() {
 		var imageUrls = [];
 		
 		for(var i = 1; i < 11; i++){
+			// remove invalid color from input box
+			$("#l" + i + "tb").removeClass("invalid");
+			
+			// get input box value
 			var url = $("#l" + i + "tb").val();
 			
 			if(url !== ""){
@@ -226,6 +230,11 @@ function imagesLoaded(content, userInput) {
 			
 			for(var i = 0; i < failedLayerNames.length; i++){
 				var layerNum = failedLayerNames[i].replace("layer", "");
+				
+				// color input box
+				$("#l" + layerNum + "tb").addClass("invalid");
+				
+				// add info to error message
 				errorMessage += "Layer " + layerNum + " URL failed to provide an image. Make sure it's a direct image link and try again.\n\n";
 			}
 			
@@ -249,7 +258,6 @@ function imagesLoaded(content, userInput) {
 function validateImageUrls(imageUrls) {
 	var report = {
 		valid : true,
-		invalidLayerIndices: [],
 		errorMessage: ""
 	}
 	
@@ -257,9 +265,9 @@ function validateImageUrls(imageUrls) {
 		if(imageUrls[i] !== null){
 			// check length
 			if(imageUrls[i].length > 200){
-				report.invalidLayerIndices.push(i + 1);
 				report.errorMessage += "Layer " + (i + 1) + " URL is too long. Maximum length is 200 characters.\n\n";
 				report.valid = false;
+				$("#l" + (i + 1) + "tb").addClass("invalid");
 			}
 			
 			// check if url leads to an image
@@ -277,16 +285,16 @@ function validateImageUrls(imageUrls) {
 				
 				if(!allowed){
 					// invalid image format
-					report.invalidLayerIndices.push(i + 1);
 					report.errorMessage += "Layer " + (i + 1) + " URL needs to end with one of the following: " + settings.supportedImageFormats.join("; ") + ".\n\n";
 					report.valid = false;
+					$("#l" + (i + 1) + "tb").addClass("invalid");
 				}
 			}
 			else{
 				// url doesn't seem to lead to an image
-				report.invalidLayerIndices.push(i + 1);
 				report.errorMessage += "Layer " + (i + 1) + " URL needs to end with one of the following: " + settings.supportedImageFormats.join("; ") + ".\n\n";
 				report.valid = false;
+				$("#l" + (i + 1) + "tb").addClass("invalid");
 			}
 		}
 	}
