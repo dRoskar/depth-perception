@@ -150,6 +150,12 @@ $(document).ready(function() {
 			if(url !== ""){
 				empty = false;
 				
+				// remove slash from end of url if it's there
+				if(url.substring(url.length - 1) === "/"){
+					url = url.substring(0, url.length - 1);
+					$("#l" + i + "tb").val(url);
+				}
+				
 				imageUrls.push(url);
 			}
 			else{
