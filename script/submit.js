@@ -158,6 +158,9 @@ $(document).ready(function() {
 			var report = validateImageUrls(imageUrls);
 			
 			if(report.valid){
+				// show loading animation
+				canvasControl.showLoadingAnimation();
+				
 				// package content
 				var content = dataAccess.packageLocalContent("", "", imageUrls, 1024, 576);
 				
