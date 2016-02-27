@@ -1,5 +1,5 @@
 # depth-perception
-Remake of a web page that allows users to submit multiple images to a canvas that simulates a 3D effect.
+Remake of my old web page that allows users to submit multiple images to a canvas that simulates a 3D effect.
 
 ## About
 This is an old project of mine that I did back when I didn't know much about web programming. I winged it.
