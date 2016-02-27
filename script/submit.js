@@ -210,7 +210,9 @@ $(document).ready(function() {
 	dataAccess.loadContent("3x4mpl3", null, imagesLoaded);
 });
 
-function imagesLoaded(content, userInput = false) {
+function imagesLoaded(content, userInput) {
+	userInput = typeof userInput === "undefined" ? false : userInput;
+	
 	if(userInput){
 		// enable submit button
 		$("#submitButton").prop("disabled", false);

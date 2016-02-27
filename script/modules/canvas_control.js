@@ -1,6 +1,6 @@
 // canvas module
 var canvasControl = function() {
-	var c = $("#canvas").get(0);
+	var c = $("#canvas").get()[0];
 	var ctx = c.getContext("2d");
 	var untouched = true;
 	var content = null;
@@ -8,6 +8,7 @@ var canvasControl = function() {
 	var loadingImage = new Image();
 	var loading = false;
 	var loadingRotation = 1;
+	var failedImageIndices = [];
 	
 	// init
 	loadingImage.src = "images/loading.svg";
@@ -113,6 +114,7 @@ var canvasControl = function() {
 		
 		setContent: function(cn, callback) {
 			content = cn;
+			failedImageIndices = [];
 			
 			// set canvas size
 			canvasControl.setCanvasSize(content.width, content.height);
