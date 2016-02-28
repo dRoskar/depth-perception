@@ -16,7 +16,6 @@ if($content === "" || $content === null){
 }
 
 // convert data to object
-error_log($content);
 $content = json_decode($content, true);
 
 if($content === null){
@@ -32,16 +31,21 @@ if($valid === false){
 	return;
 }
 
-// content is valid
-
-
-// establish db connection
+// content is valid - establish db connection
 $dbconn = pg_connect("host=localhost dbname=dr_services user=postgres password='kingdomdb'"); // yes, i know there's a password here. It's local, I don't care.
 
 if(!$dbconn){
 	echo "ERROR: failed to connect to database";
 	return;
 }
+
+// create unique identifier
+$hash = createUniqueIdentifier($dbconn, $content);
+
+// get latest page
+
+// insert new entry
+
 
 pg_close($dbconn);
 
@@ -147,5 +151,32 @@ function validateContent($content){
 	}
 	
 	return true;
+}
+
+function createUniqueIdentifier($dbconn, $content, $counter = 0){
+	$imageUrls = array();
+	foreach($content["images"] as $image){
+		if($image["url"] !== null){
+			array_push($imageUrls, $image["url"]);
+		}
+	}
+	
+	$hash = hash("sha256", "" . $content["title"] . " " . $content["author"] . " " . join(" ", $imageUrls) . " " . $counter);
+	$hash = substr($hash, 0, 8);
+	
+	// check if an entry with this identifier already exists
+	$sql = "SELECT EXISTS(SELECT 1 FROM dp_entries WHERE hash='$hash') AS exists";
+	$result = pg_query($dbconn, $sql);
+	
+	if(!$result){
+		return "ERROR";
+	}
+	
+	if(pg_fetch_row($result)[0] === "t"){
+		// this identidier already exists
+		$hash = createUniqueIdentifier($dbconn, $content, ++$counter);
+	}
+		
+	return $hash;
 }
 ?>
