@@ -241,6 +241,14 @@ $(document).ready(function() {
 	});
 	// -------------------------------------------
 	
+	for(var i = 1; i < 11; i++){
+		$("#l" + i + "tb").on("input paste", function(element){
+			// disable submit button
+			$("#submitButton").prop("disabled", true);
+			$("#submitButton").addClass("disabled");
+		});
+	}
+	
 	// begin canvas drawing loop
 	canvasControl.beginDrawLoop();
 	
