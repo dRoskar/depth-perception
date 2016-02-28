@@ -229,7 +229,7 @@ $(document).ready(function() {
 	});
 
 	$("#submitButton").click(function(){
-		
+		dataAccess.submitContent(canvasControl.getContent());
 	});
 
 	$("#galleryButton").click(function(){

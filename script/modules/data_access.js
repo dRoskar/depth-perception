@@ -137,8 +137,13 @@ var dataAccess = function(){
 			}
 		},
 		
-		submitContent: function() {
-			console.log("I don't do anything yet");
+		submitContent: function(ct) {
+			$.post("backend/submitContent.php", {
+				content: JSON.stringify(ct)
+			}, 
+			function(reply){
+				console.log("server says " + reply);
+			});
 		}
 	};
 }();
