@@ -32,7 +32,7 @@ if($valid === false){
 }
 
 // content is valid - establish db connection
-$dbconn = pg_connect("host=localhost dbname=dr_services user=postgres password='kingdomdb'"); // yes, i know there's a password here. It's local, I don't care.
+$dbconn = pg_connect("host=localhost dbname=dr_services user=postgres password='kingdomdb'");
 
 if(!$dbconn){
 	echo "ERROR: failed to connect to database";
@@ -42,15 +42,53 @@ if(!$dbconn){
 // create unique identifier
 $hash = createUniqueIdentifier($dbconn, $content);
 
+if($hash === "ERROR"){
+	echo "ERROR: failed to create a unique identifier";
+	pg_close($dbconn);
+	return;
+}
+
 // get latest page
+$sql = "SELECT page FROM dp_entries ORDER BY page DESC LIMIT 1";
+$result = pg_query($dbconn, $sql);
+
+if(!$result){
+	echo "ERROR: failed to retrieve last page";
+	pg_close($dbconn);
+	return;
+}
+
+$page = pg_fetch_row($result)[0];
+$page++;
 
 // insert new entry
+$layer1 = $content["images"]["layer1"]["url"] === null ? "null" : "'" . $content["images"]["layer1"]["url"] . "'";
+$layer2 = $content["images"]["layer2"]["url"] === null ? "null" : "'" . $content["images"]["layer2"]["url"] . "'";
+$layer3 = $content["images"]["layer3"]["url"] === null ? "null" : "'" . $content["images"]["layer3"]["url"] . "'";
+$layer4 = $content["images"]["layer4"]["url"] === null ? "null" : "'" . $content["images"]["layer4"]["url"] . "'";
+$layer5 = $content["images"]["layer5"]["url"] === null ? "null" : "'" . $content["images"]["layer5"]["url"] . "'";
+$layer6 = $content["images"]["layer6"]["url"] === null ? "null" : "'" . $content["images"]["layer6"]["url"] . "'";
+$layer7 = $content["images"]["layer7"]["url"] === null ? "null" : "'" . $content["images"]["layer7"]["url"] . "'";
+$layer8 = $content["images"]["layer8"]["url"] === null ? "null" : "'" . $content["images"]["layer8"]["url"] . "'";
+$layer9 = $content["images"]["layer9"]["url"] === null ? "null" : "'" . $content["images"]["layer9"]["url"] . "'";
+$layer10 = $content["images"]["layer10"]["url"] === null ? "null" : "'" . $content["images"]["layer10"]["url"] . "'";
 
+$sql = "INSERT INTO dp_entries (title, author, layer1, layer2, layer3, layer4, layer5, layer6, layer7, layer8, layer9, layer10, page, hash, canvas_width, canvas_height) VALUES ('" . $content["title"] . "', '" . $content["author"] . "', $layer1, $layer2, $layer3, $layer4, $layer5, $layer6, $layer7, $layer8, $layer9, $layer10, $page, '$hash', " . $content["width"] . ", " . $content["height"] . ")";
+$result = pg_query($dbconn, $sql);
+
+if(!$result){
+	echo "ERROR: failed to insert new content";
+	pg_close($dbconn);
+	return;
+}
+
+echo "SUCCESS";
 
 pg_close($dbconn);
+return;
 
 // ------------------------------------------------------
-function validateContent($content){
+function validateContent(&$content){
 	// title
 	if(array_key_exists("title", $content) && is_string($content["title"]) && strlen($content["title"]) <= 30){
 		if($content["title"] === ""){

@@ -176,6 +176,12 @@ var canvasControl = function() {
 				// set canvas size considering the maneuver space
 				c.width = largestImage.imageObj.width / (1 + largestImage.factor);
 				c.height = largestImage.imageObj.height / (1 + largestImage.factor);
+				
+				// sync with content size
+				if(content !== null){
+					content.width = c.width;
+					content.height = c.height;
+				}
 			}
 			else{
 				// validate
@@ -190,6 +196,12 @@ var canvasControl = function() {
 				// set canvas size as provided
 				c.width = width;
 				c.height = height;
+				
+				// sync with content size
+				if(content !== null){
+					content.width = c.width;
+					content.height = c.height;
+				}
 			}
 			
 			// update image positions

@@ -142,7 +142,6 @@ var dataAccess = function(){
 				content: JSON.stringify(ct)
 			}, 
 			function(reply){
-				console.log("server says " + reply);
 			});
 		}
 	};

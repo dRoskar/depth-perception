@@ -5,7 +5,7 @@ $hash = $_GET["i"];
 $nav = $_GET["n"];
 
 // establish db connection
-$dbconn = pg_connect("host=localhost dbname=dr_services user=postgres password='kingdomdb'"); // yes, i know there's a password here. It's local, I don't care.
+$dbconn = pg_connect("host=localhost dbname=dr_services user=postgres password='kingdomdb'");
 
 if(!$dbconn){
 	echo "ERROR: failed to connect to database";
@@ -81,7 +81,7 @@ else{
 			}
 			else{
 				// went full circle, get first page
-				$result = getContentForPage(1, $dbconn);
+				$result = getContentForPage(0, $dbconn);
 				
 				if($result === "ERROR"){
 					echo "ERROR: retrieving content failed";
@@ -95,7 +95,7 @@ else{
 			// get canvas content for previous item
 			$page--;
 			
-			if($page == 0){
+			if($page == -1){
 				// went full circle get latest content
 				$result = getLatestContent($dbconn);
 				

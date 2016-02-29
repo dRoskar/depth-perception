@@ -88,6 +88,10 @@ $(document).ready(function() {
 			// update canvas size
 			canvasControl.setCanvasSize(settings.defaultCanvasWidth, settings.defaultCanvasHeight);
 			
+			// save new size values
+			$("#sizeXTb").val(settings.defaultCanvasWidth);
+			$("#sizeYTb").val(settings.defaultCanvasHeight);
+			
 			// hide custom size tooltips
 			$("#sizeXTb").qtip("api").hide();
 			$("#sizeYTb").qtip("api").hide();
@@ -117,6 +121,10 @@ $(document).ready(function() {
 			// update canvas size
 			canvasControl.setCanvasSize(null, null);
 			
+			// save new size values
+			$("#sizeXTb").val(canvasControl.getContent().width);
+			$("#sizeYTb").val(canvasControl.getContent().height);
+			
 			// hide custom size tooltips
 			$("#sizeXTb").qtip("api").hide();
 			$("#sizeYTb").qtip("api").hide();
@@ -136,6 +144,10 @@ $(document).ready(function() {
 				
 				// update canvas size
 				canvasControl.setCanvasSize(null, null);
+				
+				// save new size values
+				$("#sizeXTb").val(canvasControl.getContent().width);
+				$("#sizeYTb").val(canvasControl.getContent().height);
 			}
 		}
 	});
@@ -200,7 +212,7 @@ $(document).ready(function() {
 				canvasControl.showLoadingAnimation();
 				
 				// package content
-				var content = dataAccess.packageLocalContent("", "", imageUrls, 1024, 576);
+				var content = dataAccess.packageLocalContent("", "", imageUrls, $("#sizeXTb").val(), $("#sizeYTb").val());
 				
 				if(content !== false){
 					// prepare content
