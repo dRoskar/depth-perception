@@ -11,7 +11,8 @@ define("ALLOWED_FORMATS", ".png|.jpg|.bmp|.gif|.svg");
 $content = $_POST["content"];
 
 if($content === "" || $content === null){
-	echo "ERROR: no data was passed";
+	error_log("ERROR: no data was passed");
+	echo "#ERROR";
 	return;
 }
 
@@ -19,7 +20,8 @@ if($content === "" || $content === null){
 $content = json_decode($content, true);
 
 if($content === null){
-	echo "ERROR: failed to parse json data";
+	error_log("ERROR: failed to parse json data");
+	echo "#ERROR";
 	return;
 }
 
@@ -27,7 +29,8 @@ if($content === null){
 $valid = validateContent($content);
 
 if($valid === false){
-	echo "ERROR: content invalid";
+	error_log("ERROR: content invalid");
+	echo "#ERROR";
 	return;
 }
 
@@ -35,7 +38,8 @@ if($valid === false){
 $dbconn = pg_connect("host=localhost dbname=dr_services user=postgres password='kingdomdb'");
 
 if(!$dbconn){
-	echo "ERROR: failed to connect to database";
+	error_log("ERROR: failed to connect to database");
+	echo "#ERROR";
 	return;
 }
 
@@ -43,7 +47,8 @@ if(!$dbconn){
 $hash = createUniqueIdentifier($dbconn, $content);
 
 if($hash === "ERROR"){
-	echo "ERROR: failed to create a unique identifier";
+	error_log("ERROR: failed to create a unique identifier");
+	echo "#ERROR";
 	pg_close($dbconn);
 	return;
 }
@@ -53,7 +58,8 @@ $sql = "SELECT page FROM dp_entries ORDER BY page DESC LIMIT 1";
 $result = pg_query($dbconn, $sql);
 
 if(!$result){
-	echo "ERROR: failed to retrieve last page";
+	error_log("ERROR: failed to retrieve last page");
+	echo "#ERROR";
 	pg_close($dbconn);
 	return;
 }
@@ -77,12 +83,13 @@ $sql = "INSERT INTO dp_entries (title, author, layer1, layer2, layer3, layer4, l
 $result = pg_query($dbconn, $sql);
 
 if(!$result){
-	echo "ERROR: failed to insert new content";
+	error_log("ERROR: failed to insert new content");
+	echo "#ERROR";
 	pg_close($dbconn);
 	return;
 }
 
-echo "SUCCESS";
+echo "#SUCCESS";
 
 pg_close($dbconn);
 return;

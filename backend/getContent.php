@@ -8,7 +8,8 @@ $nav = $_GET["n"];
 $dbconn = pg_connect("host=localhost dbname=dr_services user=postgres password='kingdomdb'");
 
 if(!$dbconn){
-	echo "ERROR: failed to connect to database";
+	error_log("ERROR: failed to connect to database");
+	echo "#ERROR";
 	return;
 }
 
@@ -17,7 +18,8 @@ if($hash == null){
 	$result = getLatestContent($dbconn);
 	
 	if($result === "ERROR"){
-		echo "ERROR: retrieving content failed";
+		error_log("ERROR: retrieving content failed - return latest content");
+		echo "#ERROR";
 	}
 	else{
 		echo $result;
@@ -29,7 +31,8 @@ else{
 		$result = getContentForHash($hash, $dbconn);
 		
 		if($result === "ERROR"){
-			echo "ERROR: retrieving content failed";
+			error_log("ERROR: retrieving content failed - get canvas content for selected hash");
+			echo "#ERROR";
 		}
 		else{
 			echo $result;
@@ -41,11 +44,14 @@ else{
 			$result = getLatestContent($dbconn);
 				
 			if($result === "ERROR"){
-				echo "ERROR: retrieving content failed";
+				error_log("ERROR: retrieving content failed - get 404 content");
+				echo "#ERROR";
+				pg_close($dbconn);
 				return;
 			}
 			else{
 				echo $result;
+				pg_close($dbconn);
 				return;
 			}
 		}
@@ -54,7 +60,9 @@ else{
 		$page = getPageForItem($hash, $dbconn);
 		
 		if($page === "ERROR"){
-			echo "ERROR: getting current item's page failed";
+			error_log("ERROR: getting current item's page failed");
+			echo "#ERROR";
+			pg_close($dbconn);
 			return;
 		}
 				
@@ -65,7 +73,9 @@ else{
 			$pageExists = pageExists($page, $dbconn);
 			
 			if($pageExists === "ERROR"){
-				echo "ERROR: checking if page $page exists failed";
+				error_log("ERROR: checking if page $page exists failed");
+				echo "#ERROR";
+				pg_close($dbconn);
 				return;
 			}
 			
@@ -73,10 +83,15 @@ else{
 				$result = getContentForPage($page, $dbconn);
 				
 				if($result === "ERROR"){
-					echo "ERROR: retrieving content failed";
+					error_log("ERROR: retrieving content failed - get canvas content for next item");
+					echo "#ERROR";
+					pg_close($dbconn);
+					return;
 				}
 				else{
 					echo $result;
+					pg_close($dbconn);
+					return;
 				}
 			}
 			else{
@@ -84,10 +99,15 @@ else{
 				$result = getContentForPage(0, $dbconn);
 				
 				if($result === "ERROR"){
-					echo "ERROR: retrieving content failed";
+					error_log("ERROR: retrieving content failed - went full circle, get first page");
+					echo "#ERROR";
+					pg_close($dbconn);
+					return;
 				}
 				else{
 					echo $result;
+					pg_close($dbconn);
+					return;
 				}
 			}
 		}
@@ -100,11 +120,14 @@ else{
 				$result = getLatestContent($dbconn);
 				
 				if($result === "ERROR"){
-					echo "ERROR: retrieving content failed";
+					error_log("ERROR: retrieving content failed - went full circle get latest content");
+					echo "#ERROR";
+					pg_close($dbconn);
 					return;
 				}
 				else{
 					echo $result;
+					pg_close($dbconn);
 					return;
 				}
 			}
@@ -113,14 +136,15 @@ else{
 			$result = getContentForPage($page, $dbconn);
 			
 			if($result === "ERROR"){
-				echo "ERROR: retrieving content failed";
+				error_log("ERROR: retrieving content failed - get page content");
+				echo "#ERROR";
 			}
 			else{
 				echo $result;
 			}
 		}
 		else{
-			echo "false";
+			echo "#ERROR";
 		}
 	}
 }
