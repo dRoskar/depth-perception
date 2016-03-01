@@ -10,6 +10,9 @@ $(document).ready(function() {
 	$("#sizeXTb").get()[0].valid = true;
 	$("#sizeYTb").get()[0].valid = true;
 	
+	$("#titleTb").get()[0].previousValue = "";
+	$("#authorTb").get()[0].previousValue = "";
+	
 	$("#canvas").get()[0].updateSizeTimeoutId = null;
 	
 	// custom tooltips
@@ -241,7 +244,38 @@ $(document).ready(function() {
 	});
 
 	$("#submitButton").click(function(){
+		// clear info prompt fields
+		$("#titleTb").val("");
+		$("#authorTb").val("");
+		$("#titleTb").get()[0].previousValue = "";
+		$("#authorTb").get()[0].previousValue = "";
+		
+		// show info prompt
+		$("#modalScreen").fadeIn("fast");
+		$("#infoPrompt").fadeIn("fast");
+	});
+	
+	$("#infoPromptSubmitButton").click(function(){
+		// hide info prompt
+		$("#infoPrompt").fadeOut("fast");
+		
+		// save info
+		var content = canvasControl.getContent();
+		
+		content.title = $("#titleTb").val() === "" ? "Unnamed" : $("#titleTb").val();
+		content.author = $("#authorTb").val() === "" ? "Anonymous" : $("#authorTb").val();
+		
+		// submit content
 		dataAccess.submitContent(canvasControl.getContent());
+		
+		// show loading animation
+		$("#loadingImage").show();
+	});
+	
+	$("#infoPromptCancelButton").click(function(){
+		// hide info prompt
+		$("#modalScreen").fadeOut("fast");
+		$("#infoPrompt").fadeOut("fast");
 	});
 
 	$("#galleryButton").click(function(){
@@ -252,6 +286,9 @@ $(document).ready(function() {
 		window.location.href = "contact.html";
 	});
 	// -------------------------------------------
+	
+	$("#titleTb").on("input paste", onInfoTextBoxChange);
+	$("#authorTb").on("input paste", onInfoTextBoxChange);
 	
 	for(var i = 1; i < 11; i++){
 		$("#l" + i + "tb").on("input paste", function(element){
@@ -354,6 +391,20 @@ function validateImageUrls(imageUrls) {
 	}
 	
 	return report;
+}
+
+function onInfoTextBoxChange(element){
+	var textBox = element.target;
+	var regExp = /^[a-z 0-9_!\.,\?\-]*$/i;
+	
+	if(regExp.test(textBox.value)){
+		// allowed
+		textBox.previousValue = textBox.value;
+	}
+	else{
+		// not allowed
+		textBox.value = textBox.previousValue;
+	}
 }
 
 // ----------- custom size inputs -----------

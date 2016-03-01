@@ -80,6 +80,25 @@
 				<td class="navtd" ><button id="contactButton" class="big" >contact</button></td>
 			</tr>
 		</table>
+		
+		<!-- name prompt dialog -->
+		<div id="modalScreen"></div>
+		<div id="infoPrompt" class="modalDialog">
+			Name your masterpiece:
+			<br />
+			<input id="titleTb" class="textBox" type="text" placeholder="Unnamed" maxlength="30"></input>
+			<br />
+			Your name:
+			<br />
+			<input id="authorTb" class="textBox" type="text" placeholder="Anonymous" maxlength="30" ></input>
+			<div class="dialogButtonSet">
+				<button id="infoPromptSubmitButton" class="medium" >submit</button>
+				<button id="infoPromptCancelButton" class="medium" >cancel</button>
+			</div>
+		</div>
+		
+		<image id="loadingImage" class="rotating_icon" src="images/loading.svg"></image>
+		
 		<br />
 		<script src="script/settings.js"></script>
 		<script src="script/modules/tools.js"></script>
