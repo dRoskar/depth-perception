@@ -173,9 +173,20 @@ var canvasControl = function() {
 				// find largest image
 				var largestImage = findLargestImage(content.images);
 				
-				// set canvas size considering the maneuver space
-				c.width = largestImage.imageObj.width / (1 + largestImage.factor);
-				c.height = largestImage.imageObj.height / (1 + largestImage.factor);
+				// calculate canvas size considering the maneuver space
+				var calculatedWidth = largestImage.imageObj.width / (1 + largestImage.factor);
+				var calculatedHeight = largestImage.imageObj.height / (1 + largestImage.factor);
+				
+				// don't suprass size limits
+				calculatedWidth = calculatedWidth < settings.minimumCanvasWidth ? settings.minimumCanvasWidth : calculatedWidth;
+				calculatedWidth = calculatedWidth > settings.maximumCanvasWidth ? settings.maximumCanvasWidth : calculatedWidth;
+				
+				calculatedHeight = calculatedHeight < settings.minimumCanvasHeight ? settings.minimumCanvasHeight : calculatedHeight;
+				calculatedHeight = calculatedHeight > settings.maximumCanvasHeight ? settings.maximumCanvasHeight : calculatedHeight;
+				
+				// set canvas size
+				c.width = calculatedWidth;
+				c.height = calculatedHeight;
 				
 				// sync with content size
 				if(content !== null){
