@@ -118,6 +118,7 @@ a {
 	margin-bottom: 10px;
 	margin-right: 10px;
 	margin-left: 10px;
+	width: 138px;
 }
 
 .sizetb {
@@ -277,6 +278,14 @@ input.invalid {
 	width: 250px;
 }
 
+.adjustButton {
+	display: none;
+	margin-bottom: 10px;
+	margin-right: 10px;
+	margin-left: 10px;
+	width: 138px;
+}
+
 #authorTb {
 	margin-top: 15px;
 	width: 250px;
@@ -291,6 +300,10 @@ input.invalid {
 	width: 100px;
 	height: 100px;
 	display: none;
+}
+
+.cursorMove {
+	cursor: move;
 }
 
 .rotating_icon{

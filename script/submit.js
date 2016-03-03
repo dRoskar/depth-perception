@@ -237,9 +237,33 @@ $(document).ready(function() {
 		if(!$(this).hasClass("toggled")){
 			// toggle button
 			$(this).addClass("toggled");
+			
+			// change cenvas cursor display
+			$("#canvas").addClass("cursorMove");
+			
+			// hide input fields, show toggle buttons
+			for(i = 1; i < 11; i++){
+				// hide input field
+				$("#l" + i + "tb").hide();
+				
+				// show toggle button
+				$("#adjust" + i + "Button").show();
+			}
 		}
 		else{
 			$(this).removeClass("toggled");
+			
+			//change canvas cursor display
+			$("#canvas").removeClass("cursorMove");
+			
+			// hide toggle buttons, show input fields
+			for(i = 1; i < 11; i++){
+				// hide toggle button
+				$("#adjust" + i + "Button").hide();
+				
+				// show input field
+				$("#l" + i + "tb").show();
+			}
 		}
 	});
 
@@ -274,6 +298,10 @@ $(document).ready(function() {
 				$("#submitButton").prop("disabled", true);
 				$("#submitButton").addClass("disabled");
 				
+				// disable adjust button
+				$("#adjustButton").prop("disabled", true);
+				$("#adjustButton").addClass("disabled");
+				
 				// hide loading animation
 				$("#loadingImage").hide();
 				
@@ -295,6 +323,18 @@ $(document).ready(function() {
 		$("#modalScreen").fadeOut("fast");
 		$("#infoPrompt").fadeOut("fast");
 	});
+	
+	// adjust toggle button click handlers
+	for(var i = 0; i < 11; i++){
+		$("#adjust" + i + "Button").click(function(){
+			if(!$(this).hasClass("toggled")){
+				$(this).addClass("toggled");
+			}
+			else{
+				$(this).removeClass("toggled");
+			}
+		});
+	}
 
 	$("#navGalleryButton").click(function(){
 		window.location.href = "/depth_perception";
@@ -313,6 +353,10 @@ $(document).ready(function() {
 			// disable submit button
 			$("#submitButton").prop("disabled", true);
 			$("#submitButton").addClass("disabled");
+			
+			// disable adjust button
+			$("#adjustButton").prop("disabled", true);
+			$("#adjustButton").addClass("disabled");
 		});
 	}
 	
@@ -354,6 +398,10 @@ function imagesLoaded(content, userInput) {
 			// enable submit button
 			$("#submitButton").prop("disabled", false);
 			$("#submitButton").removeClass("disabled");
+			
+			// enable adjust button
+			$("#adjustButton").prop("disabled", false);
+			$("#adjustButton").removeClass("disabled");
 		}
 	}
 	
