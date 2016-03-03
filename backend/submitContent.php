@@ -92,6 +92,7 @@ if(!$result){
 echo "#SUCCESS";
 
 pg_close($dbconn);
+
 return;
 
 // ------------------------------------------------------

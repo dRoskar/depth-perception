@@ -266,7 +266,25 @@ $(document).ready(function() {
 		content.author = $("#authorTb").val() === "" ? "Anonymous" : $("#authorTb").val();
 		
 		// submit content
-		dataAccess.submitContent(canvasControl.getContent());
+		dataAccess.submitContent(canvasControl.getContent(), function(success){
+			if(!success){
+				alert("Something wen't wrong. Sorry!\nPlease try again in a couple of.... hours?");
+				
+				// disable submit button
+				$("#submitButton").prop("disabled", true);
+				$("#submitButton").addClass("disabled");
+				
+				// hide loading animation
+				$("#loadingImage").hide();
+				
+				// hide modal overlay
+				$("#modalScreen").fadeOut("fast");
+			}
+			else{
+				// success - return to gallery
+				window.location.href = "/depth_perception";
+			}
+		});
 		
 		// show loading animation
 		$("#loadingImage").show();

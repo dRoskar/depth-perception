@@ -22,16 +22,20 @@ var dataAccess = function(){
 			}
 			
 			$.get("backend/getContent.php?i=" + hash + "&n=" + nav, function(data) {
-				if(data == "false"){
+				if(data.indexOf("#ERROR") > -1){
 					// error
+					if(typeof callback == "function"){
+						callback(false);
+					}
 				}
 				else{
 					// create data set
+					
 					data = JSON.parse(data);
 					
 					if(!data.hasOwnProperty("error")){
 						var content = {
-							title: data[1],
+							title: (data[1] == "" || data[1] == null) ? "Unnamed" : data[1],
 							author: (data[2] == "" || data[2] == null) ? "Anonymous" : data[2],
 							images: {},
 							hash: data[14],
@@ -137,11 +141,21 @@ var dataAccess = function(){
 			}
 		},
 		
-		submitContent: function(ct) {
+		submitContent: function(ct, callback) {
 			$.post("backend/submitContent.php", {
 				content: JSON.stringify(ct)
 			}, 
 			function(reply){
+				if(reply === "#SUCCESS"){
+					if(typeof callback == "function"){
+						callback(true);
+					}
+				}
+				else{
+					if(typeof callback == "function"){
+						callback(false);
+					}
+				}
 			});
 		}
 	};

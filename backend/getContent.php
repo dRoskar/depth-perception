@@ -135,7 +135,7 @@ else{
 			// get page content
 			$result = getContentForPage($page, $dbconn);
 			
-			if($result === "ERROR"){
+			if($result === "ERROR" || $result === "false"){
 				error_log("ERROR: retrieving content failed - get page content");
 				echo "#ERROR";
 			}
@@ -184,11 +184,11 @@ function getContentForHash($hash, $dbconn){
 function getContentForPage($page, $dbconn){
 	$sql = "SELECT * FROM dp_entries WHERE page = $page";
 	$result = pg_query($dbconn, $sql);
-
+	
 	if(!$result){
 		return "ERROR";
 	}
-
+	
 	return json_encode(pg_fetch_row($result));
 }
 

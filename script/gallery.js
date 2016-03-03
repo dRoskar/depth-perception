@@ -54,6 +54,11 @@ $(document).ready(function() {
 });
 
 function imagesLoaded(content) {
+	if(content === false){
+		alert("Something went wrong. Sorry!");
+		return;
+	}
+	
 	// display content information under the canvas
 	showInfo(content);
 	
