@@ -200,9 +200,17 @@ $(document).ready(function() {
 				}
 				
 				imageUrls.push(url);
+				
+				// enable adjust toggle button for this layer
+				$("#adjust" + i + "Button").prop("disabled", false);
+				$("#adjust" + i + "Button").removeClass("disabled");
 			}
 			else{
 				imageUrls.push(null);
+				
+				// disable adjust toggle button for this layer
+				$("#adjust" + i + "Button").prop("disabled", true);
+				$("#adjust" + i + "Button").addClass("disabled");
 			}
 		}
 		
