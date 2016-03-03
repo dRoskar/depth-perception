@@ -21,7 +21,7 @@ var canvasControl = function() {
 	});
 	
 	$("#canvas").mousedown(function(e){
-		if(e.which === 1){
+		if(adjustMode && e.which === 1){
 			// get mouse position relative to canvas
 			touchdownLocation = tools.getCanvasRelativePosition(c, e.clientX, e.clientY);
 			
@@ -34,7 +34,7 @@ var canvasControl = function() {
 	});
 	
 	$("#canvas").mouseup(function(e){
-		if(e.which === 1){
+		if(adjustMode && e.which === 1){
 			mouseDown = false;
 
 			// get mouse position
@@ -57,7 +57,7 @@ var canvasControl = function() {
 	});
 	
 	$("#canvas").mouseleave(function(e){
-		if(mouseDown){
+		if(adjustMode && mouseDown){
 			// left canvas while adjusting images
 			mouseDown = false;
 			
