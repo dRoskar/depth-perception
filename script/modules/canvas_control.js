@@ -56,6 +56,30 @@ var canvasControl = function() {
 		}
 	});
 	
+	$("#canvas").mouseleave(function(e){
+		if(mouseDown){
+			// left canvas while adjusting images
+			mouseDown = false;
+			
+			// get mouse position
+			var mousePosition = tools.getCanvasRelativePosition(c, e.clientX, e.clientY);
+			
+			//convert to central coordinate system
+			mousePosition.x -= c.width / 2;
+			mousePosition.y -= c.height / 2;
+			
+			// update selected images' offset
+			for(var i = 1; i < (tools.getObjectSize(content.images) + 1); i++){
+				if($("#adjust" + i + "Button").hasClass("toggled")){
+					content.images["layer" + i].offsetX = content.images["layer" + i].offsetX + (mousePosition.x - touchdownLocation.x);
+					content.images["layer" + i].offsetY = content.images["layer" + i].offsetY + (mousePosition.y - touchdownLocation.y);
+				}
+			}
+			
+			resetImagePositions();
+		}
+	});
+	
 	// private methods
 	var clearCanvas = function() {
 		ctx.clearRect(0, 0, c.width, c.height);
