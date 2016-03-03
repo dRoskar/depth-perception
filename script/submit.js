@@ -296,11 +296,11 @@ $(document).ready(function() {
 		$("#infoPrompt").fadeOut("fast");
 	});
 
-	$("#galleryButton").click(function(){
+	$("#navGalleryButton").click(function(){
 		window.location.href = "/depth_perception";
 	});
 
-	$("#contactButton").click(function(){
+	$("#navContactButton").click(function(){
 		window.location.href = "contact.html";
 	});
 	// -------------------------------------------

@@ -31,11 +31,11 @@ $(document).ready(function() {
 		$("#textBoxShare").blur();
 	});
 
-	$("#submitButton").click(function() {
+	$("#navSubmitButton").click(function() {
 		window.location.href = "submit.html";
 	});
 
-	$("#contactButton").click(function() {
+	$("#navContactButton").click(function() {
 		window.location.href = "contact.html";
 	});
 	//-------------------------------------------

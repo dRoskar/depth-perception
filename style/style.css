@@ -70,21 +70,30 @@ a {
 	text-decoration: none;
 }
 
-.navtd {
-	width: 100px;
-}
-
 #personalUrl {
 	color: #DFBF5F;
 	color: #DFBF5F;
 	border-bottom: 2px solid #DFBF5F;
 }
 
-#navigationTable {
-	margin-left: auto;
-	margin-right: auto;
+.navtd {
 	text-align: center;
-	font-size: 24px;
+	padding-top: 35px;
+}
+
+#navGalleryButton {
+	margin-top: 5px;
+	margin-right: 10px;
+}
+
+#navSubmitButton {
+	margin-top: 5px;
+	margin-right: 10px;
+}
+
+#navContactButton {
+	margin-top: 5px;
+	margin-left: 10px;
 }
 
 #AL {
@@ -96,7 +105,6 @@ a {
 	width: 42px;
 	margin-left: 25px;
 }
-
 
 .textBox {
 	background-color: #000000;
