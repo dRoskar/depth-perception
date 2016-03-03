@@ -49,6 +49,8 @@ var dataAccess = function(){
 									imageObj: new Image(),
 									x: "",
 									y: "",
+									offsetX: 0,
+									offsetY: 0,
 									factor: settings["layer" + i + "Factor"]
 							};
 						}
@@ -97,6 +99,8 @@ var dataAccess = function(){
 						imageObj: new Image(),
 						x: "",
 						y: "",
+						offsetX: 0,
+						offsetY: 0,
 						factor: settings["layer" + i + "Factor"]
 				};
 			}

@@ -9,12 +9,51 @@ var canvasControl = function() {
 	var loading = false;
 	var loadingRotation = 1;
 	var reverseAutoSizeMode = false;
+	var adjustMode = false;
+	var mouseDown = false;
+	var touchdownLocation = null;
 	
 	// init
 	loadingImage.src = "images/loading.svg";
 	
 	$("#canvas").mousemove(function(e){
 		onMouseMove(e);
+	});
+	
+	$("#canvas").mousedown(function(e){
+		if(e.which === 1){
+			// get mouse position relative to canvas
+			touchdownLocation = tools.getCanvasRelativePosition(c, e.clientX, e.clientY);
+			
+			//convert to central coordinate system
+			touchdownLocation.x -= c.width / 2;
+			touchdownLocation.y -= c.height / 2;
+			
+			mouseDown = true;
+		}
+	});
+	
+	$("#canvas").mouseup(function(e){
+		if(e.which === 1){
+			mouseDown = false;
+
+			// get mouse position
+			var mousePosition = tools.getCanvasRelativePosition(c, e.clientX, e.clientY);
+			
+			//convert to central coordinate system
+			mousePosition.x -= c.width / 2;
+			mousePosition.y -= c.height / 2;
+			
+			// update selected images' offset
+			for(var i = 1; i < (tools.getObjectSize(content.images) + 1); i++){
+				if($("#adjust" + i + "Button").hasClass("toggled")){
+					content.images["layer" + i].offsetX = content.images["layer" + i].offsetX + (mousePosition.x - touchdownLocation.x);
+					content.images["layer" + i].offsetY = content.images["layer" + i].offsetY + (mousePosition.y - touchdownLocation.y);
+				}
+			}
+			
+			resetImagePositions();
+		}
 	});
 	
 	// private methods
@@ -55,7 +94,7 @@ var canvasControl = function() {
 		if(content !== null){
 			for(var i = 1; i < tools.getObjectSize(content.images) + 1; i++){
 				var image = content.images["layer" + i];
-				ctx.drawImage(image.imageObj, image.x - (image.imageObj.width/2), image.y - (image.imageObj.height/2));
+				ctx.drawImage(image.imageObj, image.x - (image.imageObj.width/2) + image.offsetX, image.y - (image.imageObj.height/2) + image.offsetY);
 			}
 		}
 		
@@ -73,7 +112,7 @@ var canvasControl = function() {
 	var onMouseMove = function(e){
 		untouched = false;
 		
-			if(content !== null){
+		if(content !== null){
 			// get mouse position relative to canvas
 			var mousePosition = tools.getCanvasRelativePosition(c, e.clientX, e.clientY);
 			
@@ -81,10 +120,24 @@ var canvasControl = function() {
 			mousePosition.x -= c.width / 2;
 			mousePosition.y -= c.height / 2;
 			
-			// update image positions
-			for(var key in content.images){
-				content.images[key].x = (-mousePosition.x * content.images[key].factor) + c.width / 2;
-				content.images[key].y = (-mousePosition.y * content.images[key].factor) + c.height / 2;
+			if(!adjustMode){
+				// update image positions
+				for(var key in content.images){
+					content.images[key].x = (-mousePosition.x * content.images[key].factor) + c.width / 2;
+					content.images[key].y = (-mousePosition.y * content.images[key].factor) + c.height / 2;
+				}
+			}
+			else{
+				// adjust mode - see if left mouse button is being held
+				if(mouseDown){
+					// update selected image positions
+					for(var i = 1; i < (tools.getObjectSize(content.images) + 1); i++){
+						if($("#adjust" + i + "Button").hasClass("toggled")){
+							content.images["layer" + i].x = (c.width / 2) + mousePosition.x - touchdownLocation.x;
+							content.images["layer" + i].y = (c.height / 2 ) + mousePosition.y - touchdownLocation.y;
+						}
+					}
+				}
 			}
 		}
 	};
@@ -121,6 +174,15 @@ var canvasControl = function() {
 		return largestImage;
 	};
 	
+	var resetImagePositions = function(){
+		if(content !== null){
+			for(var i = 1; i < tools.getObjectSize(content.images) + 1; i++){
+				content.images["layer" + i].x = c.width / 2;
+				content.images["layer" + i].y = c.height / 2;
+			}
+		}
+	}
+	
 	// public methods
 	return {
 		
@@ -129,6 +191,13 @@ var canvasControl = function() {
 		getContent: function() { return content; },
 		
 		setReverseAutoSizeMode: function(isReverse) { reverseAutoSizeMode = isReverse; },
+		
+		enableAdjustMode: function () {
+			adjustMode = true;
+			resetImagePositions();
+		},
+		
+		disableAdjustMode: function () { adjustMode = false; },
 		
 		setContent: function(cn, callback) {
 			content = cn;
@@ -215,13 +284,8 @@ var canvasControl = function() {
 				}
 			}
 			
-			// update image positions
-			if(content !== null){
-				for(var i = 1; i < tools.getObjectSize(content.images) + 1; i++){
-					content.images["layer" + i].x = c.width / 2;
-					content.images["layer" + i].y = c.height / 2;
-				}
-			}
+			// reset image positions
+			resetImagePositions();
 		}
 	};
 }();

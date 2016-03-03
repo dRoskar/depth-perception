@@ -238,8 +238,11 @@ $(document).ready(function() {
 			// toggle button
 			$(this).addClass("toggled");
 			
-			// change cenvas cursor display
+			// change canvas cursor display
 			$("#canvas").addClass("cursorMove");
+			
+			// turn adjust mode on
+			canvasControl.enableAdjustMode();
 			
 			// hide input fields, show toggle buttons
 			for(i = 1; i < 11; i++){
@@ -255,6 +258,9 @@ $(document).ready(function() {
 			
 			//change canvas cursor display
 			$("#canvas").removeClass("cursorMove");
+			
+			// turn adjust mode off
+			canvasControl.disableAdjustMode();
 			
 			// hide toggle buttons, show input fields
 			for(i = 1; i < 11; i++){
