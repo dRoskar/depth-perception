@@ -102,6 +102,12 @@ function validateContent(&$content){
 		if($content["title"] === ""){
 			$content["title"] = "Unnamed";
 		}
+		else{
+			// check if it matches allowed pattern
+			if(!preg_match("/^[a-z 0-9_!\.,\?\-]+$/i", $content["title"])){
+				return false;
+			}
+		}
 	}
 	else{
 		return false;
@@ -111,6 +117,12 @@ function validateContent(&$content){
 	if(array_key_exists("author", $content) && is_string($content["author"]) && strlen($content["author"]) <= 30){
 		if($content["author"] === ""){
 			$content["author"] = "Anonymous";
+		}
+		else{
+			// check if it matches allowed pattern
+			if(!preg_match("/^[a-z 0-9_!\.,\?\-]+$/i", $content["author"])){
+				return false;
+			}
 		}
 	}
 	else{
@@ -157,6 +169,11 @@ function validateContent(&$content){
 				
 				// check if it's too long
 				if(strlen($image["url"]) > 200){
+					return false;
+				}
+				
+				// check if it contains unallowed characters
+				if(preg_match("/[';\(\)\[\]]/i", $image["url"])){
 					return false;
 				}
 				
