@@ -1,4 +1,4 @@
-var settings = {
+var settings = Object.freeze({
 	defaultCanvasWidth: 1024,
 	defaultCanvasHeight: 576,
 	minimumCanvasWidth: 250,
@@ -18,4 +18,4 @@ var settings = {
 	layer10Factor: 0.25,
 	
 	supportedImageFormats : [".png", ".jpg", ".bmp", ".gif", ".svg"]
-}
+});
