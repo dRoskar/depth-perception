@@ -238,6 +238,14 @@ $(document).ready(function() {
 			// toggle button
 			$(this).addClass("toggled");
 			
+			// disable submit button
+			$("#submitButton").prop("disabled", true);
+			$("#submitButton").addClass("disabled");
+			
+			// disable test button
+			$("#testButton").prop("disabled", true);
+			$("#testButton").addClass("disabled");
+			
 			// change canvas cursor display
 			$("#canvas").addClass("cursorMove");
 			
@@ -258,6 +266,14 @@ $(document).ready(function() {
 			
 			//change canvas cursor display
 			$("#canvas").removeClass("cursorMove");
+			
+			// enable submit button
+			$("#submitButton").prop("disabled", false);
+			$("#submitButton").removeClass("disabled");
+			
+			// enable test button
+			$("#testButton").prop("disabled", false);
+			$("#testButton").removeClass("disabled");
 			
 			// turn adjust mode off
 			canvasControl.disableAdjustMode();
