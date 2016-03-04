@@ -365,6 +365,11 @@ $(document).ready(function() {
 			}
 		});
 	}
+	
+	$("#moreInfo").click(function(){
+		$(this).hide();
+		$("#submissionInfo").slideDown("slow");
+	});
 
 	$("#navGalleryButton").click(function(){
 		window.location.href = "/depth_perception";

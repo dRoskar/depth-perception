@@ -63,10 +63,11 @@ input:focus {
 }
 
 a:visited {
-	color: #EFDFAF;
+	color: #DFBF5F;
 }
 
 a {
+	color: #DFBF5F;
 	text-decoration: none;
 }
 
@@ -304,6 +305,10 @@ input.invalid {
 
 .cursorMove {
 	cursor: move;
+}
+
+#submissionInfo {
+	display: none;
 }
 
 .rotating_icon{
