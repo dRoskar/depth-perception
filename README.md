@@ -13,6 +13,5 @@ I like this project so I decided to remake it.
  - PHP mixed in with HTML (oh boy)
 
  ## TO-DO
- - allow image aligning (at submission). User can select a layer and drag an image around. Offset is saved to DB. When the Adjust button is toggled, the input fields turn into toggle buttons names 'Layer #'. Cursor over canvas shows that the image is draggable.
- - add 'more info' button to submission page that reveals a div with some info in it.
  - remember previous users - not showing them the 'your mouse goes here' instruction
+ - admin interface
