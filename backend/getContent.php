@@ -169,7 +169,7 @@ function getLatestContent($dbconn){
 }
 
 function getContentForHash($hash, $dbconn){
-	$sql = "SELEC title, author, 
+	$sql = "SELECT title, author, 
 			layer1, layer2, layer3, layer4, layer5, layer6, layer7, layer8, layer9, layer10, 
 			page, hash, canvas_width, canvas_height, 
 			offset1x, offset2x, offset3x, offset4x, offset5x, offset6x, offset7x, offset8x,	offset9x, offset10x, 
