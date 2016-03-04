@@ -153,7 +153,12 @@ pg_close($dbconn);
 
 // ------------------------------------------------------
 function getLatestContent($dbconn){
-	$sql = "SELECT * FROM dp_entries ORDER BY page DESC LIMIT 1";
+	$sql = "SELECT title, author, 
+			layer1, layer2, layer3, layer4, layer5, layer6, layer7, layer8, layer9, layer10, 
+			page, hash, canvas_width, canvas_height, 
+			offset1x, offset2x, offset3x, offset4x, offset5x, offset6x, offset7x, offset8x,	offset9x, offset10x, 
+			offset1y, offset2y, offset3y, offset4y, offset5y, offset6y, offset7y, offset8y,	offset9y, offset10y
+			FROM dp_entries ORDER BY page DESC LIMIT 1";
 	$result = pg_query($dbconn, $sql);
 	
 	if(!$result){
@@ -164,7 +169,12 @@ function getLatestContent($dbconn){
 }
 
 function getContentForHash($hash, $dbconn){
-	$sql = "SELECT * FROM dp_entries WHERE hash = '$hash'";
+	$sql = "SELEC title, author, 
+			layer1, layer2, layer3, layer4, layer5, layer6, layer7, layer8, layer9, layer10, 
+			page, hash, canvas_width, canvas_height, 
+			offset1x, offset2x, offset3x, offset4x, offset5x, offset6x, offset7x, offset8x,	offset9x, offset10x, 
+			offset1y, offset2y, offset3y, offset4y, offset5y, offset6y, offset7y, offset8y,	offset9y, offset10y
+			FROM dp_entries WHERE hash = '$hash'";
 	$result = pg_query($dbconn, $sql);
 	
 	if(!$result){
@@ -182,7 +192,12 @@ function getContentForHash($hash, $dbconn){
 }
 
 function getContentForPage($page, $dbconn){
-	$sql = "SELECT * FROM dp_entries WHERE page = $page";
+	$sql = "SELECT title, author, 
+			layer1, layer2, layer3, layer4, layer5, layer6, layer7, layer8, layer9, layer10, 
+			page, hash, canvas_width, canvas_height, 
+			offset1x, offset2x, offset3x, offset4x, offset5x, offset6x, offset7x, offset8x,	offset9x, offset10x, 
+			offset1y, offset2y, offset3y, offset4y, offset5y, offset6y, offset7y, offset8y,	offset9y, offset10y
+			FROM dp_entries WHERE page = $page";
 	$result = pg_query($dbconn, $sql);
 	
 	if(!$result){

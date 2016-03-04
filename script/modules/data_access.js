@@ -35,22 +35,22 @@ var dataAccess = function(){
 					
 					if(!data.hasOwnProperty("error")){
 						var content = {
-							title: (data[1] == "" || data[1] == null) ? "Unnamed" : data[1],
-							author: (data[2] == "" || data[2] == null) ? "Anonymous" : data[2],
+							title: (data[0] == "" || data[0] == null) ? "Unnamed" : data[0],
+							author: (data[1] == "" || data[1] == null) ? "Anonymous" : data[1],
 							images: {},
-							hash: data[14],
-							width: data[15],
-							height: data[16]
+							hash: data[13],
+							width: parseInt(data[14]),
+							height: parseInt(data[15])
 						};
 						
 						for(var i = 1; i < 11; i++){
 							content.images["layer" + i] = {
-									url: data[i + 2],
+									url: data[i + 1],
 									imageObj: new Image(),
 									x: "",
 									y: "",
-									offsetX: 0,
-									offsetY: 0,
+									offsetX: parseInt(data[i + 15] == null ? 0 : data[i + 15]),
+									offsetY: parseInt(data[i + 25] == null ? 0 : data[i + 25]),
 									factor: settings["layer" + i + "Factor"]
 							};
 						}
