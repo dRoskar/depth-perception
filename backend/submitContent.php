@@ -68,18 +68,29 @@ $page = pg_fetch_row($result)[0];
 $page++;
 
 // insert new entry
-$layer1 = $content["images"]["layer1"]["url"] === null ? "null" : "'" . $content["images"]["layer1"]["url"] . "'";
-$layer2 = $content["images"]["layer2"]["url"] === null ? "null" : "'" . $content["images"]["layer2"]["url"] . "'";
-$layer3 = $content["images"]["layer3"]["url"] === null ? "null" : "'" . $content["images"]["layer3"]["url"] . "'";
-$layer4 = $content["images"]["layer4"]["url"] === null ? "null" : "'" . $content["images"]["layer4"]["url"] . "'";
-$layer5 = $content["images"]["layer5"]["url"] === null ? "null" : "'" . $content["images"]["layer5"]["url"] . "'";
-$layer6 = $content["images"]["layer6"]["url"] === null ? "null" : "'" . $content["images"]["layer6"]["url"] . "'";
-$layer7 = $content["images"]["layer7"]["url"] === null ? "null" : "'" . $content["images"]["layer7"]["url"] . "'";
-$layer8 = $content["images"]["layer8"]["url"] === null ? "null" : "'" . $content["images"]["layer8"]["url"] . "'";
-$layer9 = $content["images"]["layer9"]["url"] === null ? "null" : "'" . $content["images"]["layer9"]["url"] . "'";
-$layer10 = $content["images"]["layer10"]["url"] === null ? "null" : "'" . $content["images"]["layer10"]["url"] . "'";
+$layers = array();
+foreach($content["images"] as $image){
+	$layer = array(
+		"url" => $image["url"] === null ? "null" : "'" . $image["url"] . "'",
+		"offsetX" => $image["offsetX"],
+		"offsetY" => $image["offsetY"],
+	);
+	
+	array_push($layers, $layer);
+}
 
-$sql = "INSERT INTO dp_entries (title, author, layer1, layer2, layer3, layer4, layer5, layer6, layer7, layer8, layer9, layer10, page, hash, canvas_width, canvas_height) VALUES ('" . $content["title"] . "', '" . $content["author"] . "', $layer1, $layer2, $layer3, $layer4, $layer5, $layer6, $layer7, $layer8, $layer9, $layer10, $page, '$hash', " . $content["width"] . ", " . $content["height"] . ")";
+$sql = "INSERT INTO dp_entries (title, author,
+		layer1, layer2, layer3, layer4, layer5, layer6, layer7, layer8, layer9, layer10,
+		offset1x, offset2x, offset3x, offset4x, offset5x, offset6x, offset7x, offset8x, offset9x, offset10x,
+		offset1y, offset2y, offset3y, offset4y, offset5y, offset6y, offset7y, offset8y, offset9y, offset10y,
+		page, hash, canvas_width, canvas_height
+		) VALUES (
+		'" . $content["title"] . "', '" . $content["author"] . "', 
+		" . $layers[0]["url"] . ", " . $layers[1]["url"] . ", " .$layers[2]["url"] . ", " . $layers[3]["url"] . ", " . $layers[4]["url"] . ", " . $layers[5]["url"] . ", " . $layers[6]["url"] . ", " . $layers[7]["url"] . ", " . $layers[8]["url"] . ", " . $layers[9]["url"] . ", 
+		" . $layers[0]["offsetX"] . ", " . $layers[1]["offsetX"] . ", " .$layers[2]["offsetX"] . ", " . $layers[3]["offsetX"] . ", " . $layers[4]["offsetX"] . ", " . $layers[5]["offsetX"] . ", " . $layers[6]["offsetX"] . ", " . $layers[7]["offsetX"] . ", " . $layers[8]["offsetX"] . ", " . $layers[9]["offsetX"] . ", 
+		" . $layers[0]["offsetY"] . ", " . $layers[1]["offsetY"] . ", " .$layers[2]["offsetY"] . ", " . $layers[3]["offsetY"] . ", " . $layers[4]["offsetY"] . ", " . $layers[5]["offsetY"] . ", " . $layers[6]["offsetY"] . ", " . $layers[7]["offsetY"] . ", " . $layers[8]["offsetY"] . ", " . $layers[9]["offsetY"] . ",
+		$page, '$hash', " . $content["width"] . ", " . $content["height"] . ")";
+
 $result = pg_query($dbconn, $sql);
 
 if(!$result){
@@ -156,6 +167,15 @@ function validateContent(&$content){
 		
 		foreach($content["images"] as $image){
 			if(array_key_exists("url", $image)){
+				
+				// check if offsets are valid
+				if(array_key_exists("offsetX", $image) && array_key_exists("offsetY", $image) && is_int($image["offsetX"]) && is_int($image["offsetY"])){
+					// all good
+				}
+				else{
+					return false;
+				}
+				
 				if($image["url"] === null){
 					continue;
 				}
@@ -239,7 +259,7 @@ function createUniqueIdentifier($dbconn, $content, $counter = 0){
 		// this identidier already exists
 		$hash = createUniqueIdentifier($dbconn, $content, ++$counter);
 	}
-		
+	
 	return $hash;
 }
 ?>
