@@ -4,15 +4,6 @@ body {
 	font-family: "VT323",cursive;
 }
 
-h1 {
-	text-align: center;
-	font-size: 42px;
-}
-
-h2 {
-	font-size: 31px;
-}
-
 hr {
 	border-color: #DFBF5F;
 }
@@ -79,12 +70,6 @@ a {
 	text-decoration: none;
 }
 
-#personalUrl {
-	color: #DFBF5F;
-	color: #DFBF5F;
-	border-bottom: 2px solid #DFBF5F;
-}
-
 .navtd {
 	text-align: center;
 	padding-top: 35px;
@@ -147,21 +132,6 @@ a {
 
 p {
 	font-size: 20px;
-}
-
-.marg {
-	margin-left: 20px;
-	margin-right: 20px;
-}
-
-ul {
-	color: #EFDFAF;
-	font-family: "VT323",cursive;
-	font-size: 20px;
-}
-
-#link {
-	color: #DFBF5F;
 }
 
 .centerTd {
