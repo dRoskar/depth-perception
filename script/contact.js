@@ -1,6 +1,15 @@
 $(document).ready(function() {
 	$("#sendButton").click(function(){
-		$("#captchaContainer").slideDown();
+		if($("#textAreaMessage").val() !== ""){
+			// disable changes in input fields
+			$("#textBoxMail").attr("disabled", true);
+			$("#textAreaMessage").attr("disabled", true);
+			
+			$("#captchaContainer").slideDown();
+		}
+		else{
+			alert("Write something first");
+		}
 	});
 });
 
