@@ -9,102 +9,134 @@ define("ALLOWED_FORMATS", ".png|.jpg|.bmp|.gif|.svg");
 
 // get content
 $content = $_POST["content"];
+$captchaResult = $_POST["captchaResult"];
 
-if($content === "" || $content === null){
-	error_log("ERROR: no data was passed");
-	echo "#ERROR";
-	return;
-}
+// check captcha
+$captchaCeheckData = array(
+		"secret" => "**************************************", // secret API key goes here
+		"response" => $captchaResult,
+);
 
-// convert data to object
-$content = json_decode($content, true);
 
-if($content === null){
-	error_log("ERROR: failed to parse json data");
-	echo "#ERROR";
-	return;
-}
+$response = post("https://www.google.com/recaptcha/api/siteverify", $captchaCeheckData);
 
-// validate
-$valid = validateContent($content);
+$response = json_decode($response, true);
 
-if($valid === false){
-	error_log("ERROR: content invalid");
-	echo "#ERROR";
-	return;
-}
-
-// content is valid - establish db connection
-$dbconn = pg_connect("host=localhost dbname=dr_services user=postgres password='kingdomdb'");
-
-if(!$dbconn){
-	error_log("ERROR: failed to connect to database");
-	echo "#ERROR";
-	return;
-}
-
-// create unique identifier
-$hash = createUniqueIdentifier($dbconn, $content);
-
-if($hash === "ERROR"){
-	error_log("ERROR: failed to create a unique identifier");
-	echo "#ERROR";
-	pg_close($dbconn);
-	return;
-}
-
-// get latest page
-$sql = "SELECT page FROM dp_entries ORDER BY page DESC LIMIT 1";
-$result = pg_query($dbconn, $sql);
-
-if(!$result){
-	error_log("ERROR: failed to retrieve last page");
-	echo "#ERROR";
-	pg_close($dbconn);
-	return;
-}
-
-$page = pg_fetch_row($result)[0];
-$page++;
-
-// insert new entry
-$layers = array();
-foreach($content["images"] as $image){
-	$layer = array(
-		"url" => $image["url"] === null ? "null" : "'" . $image["url"] . "'",
-		"offsetX" => $image["offsetX"],
-		"offsetY" => $image["offsetY"],
-	);
-	
-	array_push($layers, $layer);
-}
-
-$sql = "INSERT INTO dp_entries (title, author,
+if(is_array($response) && in_array("success", $response)){
+	if($response["success"] === true){
+		// user is not a robot - validate input
+		if($content === "" || $content === null){
+			error_log("ERROR: Submit - no data was passed");
+			echo "#ERROR";
+			return;
+		}
+		
+		// convert data to object
+		$content = json_decode($content, true);
+		
+		if($content === null){
+			error_log("ERROR: Submit - failed to parse json data");
+			echo "#ERROR";
+			return;
+		}
+		
+		// validate
+		$valid = validateContent($content);
+		
+		if($valid === false){
+			error_log("ERROR: Submit - content invalid");
+			echo "#ERROR";
+			return;
+		}
+		
+		// content is valid - establish db connection
+		$dbconn = pg_connect("host=localhost dbname=dr_services user=postgres password='kingdomdb'");
+		
+		if(!$dbconn){
+			error_log("ERROR: Submit - failed to connect to database");
+			echo "#ERROR";
+			return;
+		}
+		
+		// create unique identifier
+		$hash = createUniqueIdentifier($dbconn, $content);
+		
+		if($hash === "ERROR"){
+			error_log("ERROR: Submit - failed to create a unique identifier");
+			echo "#ERROR";
+			pg_close($dbconn);
+			return;
+		}
+		
+		// get latest page
+		$sql = "SELECT page FROM dp_entries ORDER BY page DESC LIMIT 1";
+		$result = pg_query($dbconn, $sql);
+		
+		if(!$result){
+			error_log("ERROR: Submit - failed to retrieve last page");
+			echo "#ERROR";
+			pg_close($dbconn);
+			return;
+		}
+		
+		$page = pg_fetch_row($result)[0];
+		$page++;
+		
+		// insert new entry
+		$layers = array();
+		foreach($content["images"] as $image){
+			$layer = array(
+					"url" => $image["url"] === null ? "null" : "'" . $image["url"] . "'",
+					"offsetX" => $image["offsetX"],
+					"offsetY" => $image["offsetY"],
+			);
+		
+			array_push($layers, $layer);
+		}
+		
+		$sql = "INSERT INTO dp_entries (title, author,
 		layer1, layer2, layer3, layer4, layer5, layer6, layer7, layer8, layer9, layer10,
 		offset1x, offset2x, offset3x, offset4x, offset5x, offset6x, offset7x, offset8x, offset9x, offset10x,
 		offset1y, offset2y, offset3y, offset4y, offset5y, offset6y, offset7y, offset8y, offset9y, offset10y,
 		page, hash, canvas_width, canvas_height
 		) VALUES (
-		'" . $content["title"] . "', '" . $content["author"] . "', 
-		" . $layers[0]["url"] . ", " . $layers[1]["url"] . ", " .$layers[2]["url"] . ", " . $layers[3]["url"] . ", " . $layers[4]["url"] . ", " . $layers[5]["url"] . ", " . $layers[6]["url"] . ", " . $layers[7]["url"] . ", " . $layers[8]["url"] . ", " . $layers[9]["url"] . ", 
-		" . $layers[0]["offsetX"] . ", " . $layers[1]["offsetX"] . ", " .$layers[2]["offsetX"] . ", " . $layers[3]["offsetX"] . ", " . $layers[4]["offsetX"] . ", " . $layers[5]["offsetX"] . ", " . $layers[6]["offsetX"] . ", " . $layers[7]["offsetX"] . ", " . $layers[8]["offsetX"] . ", " . $layers[9]["offsetX"] . ", 
+		'" . $content["title"] . "', '" . $content["author"] . "',
+		" . $layers[0]["url"] . ", " . $layers[1]["url"] . ", " .$layers[2]["url"] . ", " . $layers[3]["url"] . ", " . $layers[4]["url"] . ", " . $layers[5]["url"] . ", " . $layers[6]["url"] . ", " . $layers[7]["url"] . ", " . $layers[8]["url"] . ", " . $layers[9]["url"] . ",
+		" . $layers[0]["offsetX"] . ", " . $layers[1]["offsetX"] . ", " .$layers[2]["offsetX"] . ", " . $layers[3]["offsetX"] . ", " . $layers[4]["offsetX"] . ", " . $layers[5]["offsetX"] . ", " . $layers[6]["offsetX"] . ", " . $layers[7]["offsetX"] . ", " . $layers[8]["offsetX"] . ", " . $layers[9]["offsetX"] . ",
 		" . $layers[0]["offsetY"] . ", " . $layers[1]["offsetY"] . ", " .$layers[2]["offsetY"] . ", " . $layers[3]["offsetY"] . ", " . $layers[4]["offsetY"] . ", " . $layers[5]["offsetY"] . ", " . $layers[6]["offsetY"] . ", " . $layers[7]["offsetY"] . ", " . $layers[8]["offsetY"] . ", " . $layers[9]["offsetY"] . ",
-		$page, '$hash', " . $content["width"] . ", " . $content["height"] . ")";
+				$page, '$hash', " . $content["width"] . ", " . $content["height"] . ")";
+		
+		$result = pg_query($dbconn, $sql);
+		
+		if(!$result){
+			error_log("ERROR: Submit - failed to insert new content");
+			echo "#ERROR";
+			pg_close($dbconn);
+			return;
+		}
+		
+		echo "#SUCCESS";
+		
+		pg_close($dbconn);
+	}
+	else{
+		// robot attack
+		if(in_array("error-codes", $response)){
+			$errorCodes = $response["error-codes"];
+				
+			error_log("ERROR: Submit - reCaptcha response error codes:");
+			foreach ($errorCodes as $code){
+				error_log("    $code");
+			}
+		}
 
-$result = pg_query($dbconn, $sql);
-
-if(!$result){
-	error_log("ERROR: failed to insert new content");
-	echo "#ERROR";
-	pg_close($dbconn);
-	return;
+		echo "#ERROR";
+	}
 }
-
-echo "#SUCCESS";
-
-pg_close($dbconn);
-
-return;
+else{
+	error_log("ERROR: Submit - capthca check failed to respond with a json file");
+	echo "#ERROR";
+}
 
 // ------------------------------------------------------
 function validateContent(&$content){
@@ -261,5 +293,31 @@ function createUniqueIdentifier($dbconn, $content, $counter = 0){
 	}
 	
 	return $hash;
+}
+
+function post($url, $data){
+	$options;
+	if($data === null){
+		$options = array(
+				"http" => array(
+						"header" => "Content-type: application/x-www-form-urlencoded\r\n",
+						"method" => "POST"
+				)
+		);
+	}
+	else{
+		$options = array(
+				"http" => array(
+						"header" => "Content-type: application/x-www-form-urlencoded\r\n",
+						"method" => "POST",
+						"content" => http_build_query($data)
+				)
+		);
+	}
+
+	$context = stream_context_create($options);
+
+	// execute POST
+	return file_get_contents($url, false, $context);
 }
 ?>

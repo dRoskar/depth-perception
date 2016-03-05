@@ -145,9 +145,10 @@ var dataAccess = function(){
 			}
 		},
 		
-		submitContent: function(ct, callback) {
+		submitContent: function(ct, cptchaResult, callback) {
 			$.post("backend/submitContent.php", {
-				content: JSON.stringify(ct)
+				content: JSON.stringify(ct),
+				captchaResult: cptchaResult
 			}, 
 			function(reply){
 				if(reply === "#SUCCESS"){

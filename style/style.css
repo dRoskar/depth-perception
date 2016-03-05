@@ -264,7 +264,6 @@ input.invalid {
 	margin-top: -90px;
 	margin-left: -170px;
 	width: 340px;
-	height: 180px;
 	padding-bottom: 20px;
 	padding-top: 20px;
 	background: black;
@@ -342,6 +341,15 @@ input.invalid {
 #captchaContainer {
 	display: none;
 	margin-top: 15px;
+}
+
+.g-recaptcha {
+        display: inline-block;
+    }
+
+.centeredCaptcha {
+	width: 100%;
+	text-align: center;
 }
 
 .rotating_icon{

@@ -310,48 +310,30 @@ $(document).ready(function() {
 	});
 	
 	$("#infoPromptSubmitButton").click(function(){
-		// hide info prompt
-		$("#infoPrompt").fadeOut("fast");
+		// disable changes in input fields
+		$("#titleTb").attr("disabled", true);
+		$("#authorTb").attr("disabled", true);
 		
-		// save info
-		var content = canvasControl.getContent();
-		
-		content.title = $("#titleTb").val() === "" ? "Unnamed" : $("#titleTb").val();
-		content.author = $("#authorTb").val() === "" ? "Anonymous" : $("#authorTb").val();
-		
-		// submit content
-		dataAccess.submitContent(canvasControl.getContent(), function(success){
-			if(!success){
-				alert("Something wen't wrong. Sorry!\nPlease try again in a couple of.... hours?");
-				
-				// disable submit button
-				$("#submitButton").prop("disabled", true);
-				$("#submitButton").addClass("disabled");
-				
-				// disable adjust button
-				$("#adjustButton").prop("disabled", true);
-				$("#adjustButton").addClass("disabled");
-				
-				// hide loading animation
-				$("#loadingImage").hide();
-				
-				// hide modal overlay
-				$("#modalScreen").fadeOut("fast");
-			}
-			else{
-				// success - return to gallery
-				window.location.href = "/depth_perception";
-			}
-		});
-		
-		// show loading animation
-		$("#loadingImage").show();
+		// show captcha
+		$("#captchaContainer").slideDown();
 	});
 	
 	$("#infoPromptCancelButton").click(function(){
 		// hide info prompt
 		$("#modalScreen").fadeOut("fast");
 		$("#infoPrompt").fadeOut("fast");
+		
+		// hide captcha
+		$("#captchaContainer").hide();
+		
+		// re-enable info fields
+		$("#titleTb").attr("disabled", false);
+		$("#authorTb").attr("disabled", false);
+		
+		// clear info fields
+		$("#titleTb").val("");
+		$("#authorTb").val("");
+		
 	});
 	
 	// adjust toggle button click handlers
@@ -506,6 +488,45 @@ function onInfoTextBoxChange(element){
 		// not allowed
 		textBox.value = textBox.previousValue;
 	}
+}
+
+function captchaComplete(result){
+	// hide info prompt
+	$("#infoPrompt").fadeOut("fast");
+	
+	// save info
+	var content = canvasControl.getContent();
+	
+	content.title = $("#titleTb").val() === "" ? "Unnamed" : $("#titleTb").val();
+	content.author = $("#authorTb").val() === "" ? "Anonymous" : $("#authorTb").val();
+	
+	// submit content
+	dataAccess.submitContent(canvasControl.getContent(), result, function(success){
+		if(!success){
+			alert("Something went wrong. Sorry!\nPlease try again in a couple of.... hours?");
+			
+			// disable submit button
+			$("#submitButton").prop("disabled", true);
+			$("#submitButton").addClass("disabled");
+			
+			// disable adjust button
+			$("#adjustButton").prop("disabled", true);
+			$("#adjustButton").addClass("disabled");
+			
+			// hide loading animation
+			$("#loadingImage").hide();
+			
+			// hide modal overlay
+			$("#modalScreen").fadeOut("fast");
+		}
+		else{
+			// success - return to gallery
+			window.location.href = "/depth_perception";
+		}
+	});
+	
+	// show loading animation
+	$("#loadingImage").show();
 }
 
 // ----------- custom size inputs -----------

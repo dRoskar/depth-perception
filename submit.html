@@ -20,6 +20,9 @@
 		<!-- Qtip -->
 		<script src="libraries/jquery.qtip.min.js"></script>
 		
+		<!-- reCaptcha API -->
+		<script src='https://www.google.com/recaptcha/api.js'></script>
+		
 	</head>
 	
 	<body>
@@ -108,6 +111,9 @@
 			<div class="dialogButtonSet">
 				<button id="infoPromptSubmitButton" class="medium" >submit</button>
 				<button id="infoPromptCancelButton" class="medium" >cancel</button>
+			</div>
+			<div id="captchaContainer" class="centeredCaptcha">
+					<div class="g-recaptcha" data-sitekey="6LesBxoTAAAAAJ1oc9iRyTYK5yRQcMLUs7H-LnZB" data-callback="captchaComplete"></div>
 			</div>
 		</div>
 		
