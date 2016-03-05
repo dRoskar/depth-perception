@@ -245,6 +245,7 @@ $(document).ready(function() {
 		if(!$(this).hasClass("toggled")){
 			// toggle button
 			$(this).addClass("toggled");
+			$(this).html("done");
 			
 			// disable submit button
 			$("#submitButton").prop("disabled", true);
@@ -271,6 +272,7 @@ $(document).ready(function() {
 		}
 		else{
 			$(this).removeClass("toggled");
+			$(this).html("adjust");
 			
 			//change canvas cursor display
 			$("#canvas").removeClass("cursorMove");
