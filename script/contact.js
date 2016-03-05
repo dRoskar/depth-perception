@@ -11,6 +11,14 @@ $(document).ready(function() {
 			alert("Write something first");
 		}
 	});
+	
+	$("#navGalleryButton").click(function(){
+		window.location.href = "/depth_perception";
+	});
+	
+	$("#navSubmitButton").click(function() {
+		window.location.href = "submit.html";
+	});
 });
 
 function captchaComplete(result){
