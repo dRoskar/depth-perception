@@ -163,10 +163,11 @@ var dataAccess = function(){
 			});
 		},
 		
-		sendMessage: function(email, message, callback){
+		sendMessage: function(email, message, captchaResult, callback){
 			$.post("backend/sendMessage.php", {
 				email: email,
-				message: message
+				message: message,
+				captchaResult: captchaResult
 			},
 			function(reply){
 				if(reply === "#SUCCESS"){
