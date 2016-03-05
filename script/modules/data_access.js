@@ -161,6 +161,25 @@ var dataAccess = function(){
 					}
 				}
 			});
+		},
+		
+		sendMessage: function(email, message, callback){
+			$.post("backend/sendMessage.php", {
+				email: email,
+				message: message
+			},
+			function(reply){
+				if(reply === "#SUCCESS"){
+					if(typeof callback == "function"){
+						callback(true);
+					}
+				}
+				else{
+					if(typeof callback == "function"){
+						callback(false);
+					}
+				}
+			});
 		}
 	};
 }();

@@ -6,31 +6,46 @@
 		<meta name="keywords" content="art, depth, perception, art with depth, moving, images, pixelart, depth perception, depthperception, contact">
 		<meta name="author" content="Damjan Roškar">
 		<title>Depth Perception - Contact</title>
+		
+		<!-- font -->
 		<link href='http://fonts.googleapis.com/css?family=VT323' rel='stylesheet' type='text/css'>
+		
+		<!-- stylesheet -->
 		<link rel="stylesheet" type="text/css" href="style/style.css">
+		
+		<!-- jQuery -->
+		<script src="libraries/jquery-1.12.0.min.js"></script>
+		
 	</head>
 	
 	<body>
-		<h1>Contact</h1>
-		
-		<table id="navigationTable">
+		<table id="mainTable">
 			<tr>
-				<td class="navtd" ><a href="index.html" >Gallery</a></td>
-				<td class="navtd" ><a href="submit.html" >Submit art</a></td>
-				<td class="navtd" ><a href="about.html" >About</a></td>
+				<td>
+				<span id="emailLabel" class="settingsTitle">Enter your email if you want a reply:</span><br />
+				<input id="textBoxMail" class="textBox" type="text" placeholder="youremail@gmail.com" maxlength="50"></input><br />
+				<span id="messageLabel" class="settingsTitle">Your message:</span><br />
+				<textarea id="textAreaMessage" rows="15" cols="80" maxlength="500"></textarea><br />
+				<button id="sendButton" class="big important">send</button>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div id="messageRecievedFeedback">
+						<p>Message recieved, thanks!</p>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="navtd" colspan="3">
+					<hr>
+					<button id="navGalleryButton" class="big" >gallery</button>
+					<button id="navSubmitButton" class="big" >submit</button>
+				</td>
 			</tr>
 		</table>
 		
-		<br>
-		
-		<p class="marg" >
-			Feel free to contact me about anything at <a id="link" href="mailto:damjan.roskar.s@gmail.com?subject=Depth Perception - <insert subject>">damjan.roskar.s@gmail.com</a>.
-		</p>
-		
-		<br />
-		<br />
-		<br />
-		
+		<script src="script/modules/data_access.js"></script>
+		<script src="script/contact.js"></script>
 	</body>
-	
 </html>

@@ -21,6 +21,13 @@ input:focus {
 	outline: 0;
 }
 
+textarea {
+	background-color: #000000;
+	border: 1px solid #EFDFAF;
+	color: #EFDFAF;
+	border-radius: 3px;
+}
+
 #mainTable {
 	margin-top: 50px;
 	margin-left: auto;
@@ -310,6 +317,26 @@ input.invalid {
 
 #submissionInfo {
 	display: none;
+}
+
+#textBoxMail {
+	width: 180px;
+	text-align: left;
+	margin-top: 10px;
+	margin-bottom: 15px;
+}
+
+#textAreaMessage {
+	margin-top: 10px;
+}
+
+#sendButton {
+	margin-top: 10px;
+}
+
+#messageRecievedFeedback {
+	display: none;
+	text-align: center;
 }
 
 .rotating_icon{
