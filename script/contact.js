@@ -25,14 +25,14 @@ function captchaComplete(result){
 	// send message
 	dataAccess.sendMessage($("#textBoxMail").val(), $("#textAreaMessage").val(), result, function(success){
 		if(success){
-			// message recieved
+			// message received
 			$("#emailLabel").hide();
 			$("#messageLabel").hide();
 			$("#textBoxMail").hide();
 			$("#textAreaMessage").hide();
 			$("#sendButton").hide();
 			$("#captchaContainer").hide();
-			$("#messageRecievedFeedback").slideDown();
+			$("#messageReceivedFeedback").slideDown();
 		}
 		else{
 			// message failed to send

@@ -303,7 +303,7 @@ input.invalid {
 	margin-top: 10px;
 }
 
-#messageRecievedFeedback {
+#messageReceivedFeedback {
 	display: none;
 	text-align: center;
 }
